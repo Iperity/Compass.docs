@@ -10,7 +10,7 @@ description: A manual for both users and administrators, using and setting up yo
 
 You can find {{site.compass.reseller.prodname}} at [{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/).
 
-You need to enter your username and password and press Login to enter the site.
+You need to enter your username and password and press 'Log on' to enter the site.
 
 ## My settings
 
@@ -22,20 +22,10 @@ Here you can adjust your password and email address.
 
 ### Phone
 
-Here you can find the phone settings, adjust them, and manage your call waiting settings.
+Here you can find which phone you are currently logged on to and see which extensions and external numbers are associated with your account. If you have write permissions to the company, you are also able to change the phone you are logged on to.
 
-### Call forwarding
+The voicemail section will tell you if you have any messages waiting in your voicemail boxes.
 
-Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer call forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
-
-### Queues
-
-Here you can find the queues to which you have been added, e.g. the type
-of phone calls you can expect (for example sales or support).
-
-### Voicemail
-
-Here you can see if a voicemail box is set for your account and whether there are messages.
 You are able to reach the voicemail box by phone by doing either:
 * Call 1233 with a logged on user and enter the PIN when prompted
 * Call the phone number for which the voicemail box is set, press \* during the welcome message and enter the PIN when prompted
@@ -61,6 +51,18 @@ The structure of the voicemail menu is as follows:
   * 2 Record welcome message
   * 5 Change PIN
   * \* Main menu
+
+### Call forwarding
+
+Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer call forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
+
+### Dialplan switches
+
+This list contains up to 10 dialplan switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the dialplan switch.
+
+### Queues
+
+Here you can find the queues to which you have been added, e.g. the type of phone calls you can expect (for example sales or support).
 
 ## Service codes
 
@@ -136,7 +138,7 @@ When the phone of a colleague within your company is ringing, you are able to ta
 
 It is possible the administrator of your organisation has limited the use of call pickup. If this is the case, you are only able to pick up certain calls: calls that are coming in with users that are in the same group as you.
 
-## XMPP presence
+## XMPP chat
 
 This manual is based on Pidgin. This XMPP client is available for Windows and Linux. For other operating systems, you can use Adium (Mac OS X) [adium.im](https://adium.im/){:target="_blank"}, or any other XMPP client.
 
@@ -154,38 +156,6 @@ At first start Pidgin will ask for you account details. Fill in the following de
 * Password: your-password
 
 The Add button will add your account to Pidgin.
-
-### Overview of XMPP features
-
-Once logged on, one can view users and start phone calls from the XMPP client.
-
-### Users
-
-In the XMPP client, one can see the availability of all other users:
-
-* **On the phone with**: The user is on the phone. More details are visible when available.
-* **Ringing to**: The user is starting a phone call. More details are visible when available.
-* **Connecting to**: The user is starting a phone call, but the phone is not ringing yet. More details are visible when available.
-* **Ringing from**: The phone for this user is ringing. More details are visible when available.
-
-Users that are currently not logged in on a phone, will be invisible in
-the XMPP client, or appear “offline”. New users in will be added to your
-contact list within two hours.
-
-#### Starting phone calls
-
-It’s also possible to start phone calls from within your XMPP client. If
-you want to call a colleague, you can preview his status within the XMPP
-client. You need to start a chat by selecting this user. In the chat
-screen, type the following text “!Dial”, then press Enter. Your phone
-will start ringing. Once you answer the call your colleague will be
-dialed.
-
-There is also a group called “Company” with a company user. Whenever you
-type a telephone number in the chat screen, your phone will start
-ringing. Once you answer your call, the required number will be
-automatically dialed. There are no restrictions for this feature
-regarding brand or type of telephone hardware.
 
 # Administrator Manual
 
@@ -410,7 +380,7 @@ Remove a voice prompt by clicking the delete button (bin icon). You will be requ
 
 ### Music on Hold
 
-You can add new categories by clicking 'Add music on hold'. After entering a name, click 'Next'. The 'Edit category music on hold' loads, where audio files can be added. Next to the 'New sound prompt' field, click 'Select' to browse through your files and select an audio file. It is possible to add more than one file to a category. When more than one file is added to a category, files will be played randomly. When finished click 'Save'.
+You can add new categories by clicking 'Add music on hold'. After entering a name, click 'Next'. The 'Edit category music on hold' loads, where audio files can be added. Next to the 'New sound prompt' field, click 'Select' to browse through your files and select an audio file. It is possible to add more than one file to a category. When more than one file is added to a category, files will be played in alphabetical order. When finished click 'Save'.
 Categories can be edited and audio files can be added and removed by clicking the Edit button (pencil icon). The 'Edit category music on hold' page will load.
 To delete a category and its files click the delete button (bin icon). You will be requested to confirm the deletion.
 
@@ -440,6 +410,7 @@ Make sure the queue is followed by a next dial plan element, otherwise the queue
 * **Max. number of people in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. When there are no succesive steps in the dialplan, the call will be disconnected.
 * **Elapsed time in queue**: The ring time in seconds a call is offered to available agents in the queue.
 * **Maximum waiting time**: Time in seconds a call can stay in the queue. When passed, the call will continue to the next step in the dial plan.
+* **Weight**: The weight of this queue compared to other queues. If an agent is logged in to multiple queues, a call to a queue with a higher weight will be offered first. The default is 1 and the maximum is 5 (extreme weight).
 * **Gear up agents after a long waiting time**: When this is set more agents will be gradually engaged depending on priority and availability. At login on a queue priority 1, 2 or 3 can be set for an agent. At first agents with priority 1 will be offered calls. When option 60/180 is set, this will be the case for the first 60 seconds. In the subsequent 180 seconds agents with priority 2 will be engaged, if agents with priority 1 are unavailable. After 240 seconds all agents including priority 3 will be offered calls, until the maximum waiting time has elapsed.
 * **Music on hold**: Choose from files added in the Music on hold menu which music is played for a waiting caller.
 * **Periodic Announcements**: Choose which prompt is repeated during the waiting time in a queue.
