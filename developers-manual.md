@@ -7,7 +7,7 @@ description: Developers manual for using the REST and XMPP APIs.
 
 # Developers Manual
 
-Last updated: November 8, 2018
+Last updated: {{ site.time | date: '%B %d, %Y' }}
 
 ## Introduction
 
@@ -72,7 +72,7 @@ If an error occurs, the HTTP response code will either be in the 4xx range or in
 
 - `400 Bad Request`: the client has sent a request that is invalid.
 - `401 Unauthorized`: the credentials specified for authentication are not valid.
-- `403 Forbidden`: the client tries to request data to which it has no access, or it tries to write to resources on which only read-only access is granted.
+- `403 Forbidden`: the client tries to request data to which it has no access, it tries to write to resources on which only read-only access is granted, or it tries to use a feature which has not been enabled for the user. 
 - `404 Not Found`: the resource specified by the URL does not exist.
 - `405 Invalid Method`: the HTTP request method is invalid or unsupported.
 - `500 Internal Server Error`: the platform encountered an error that was not expected.
@@ -429,6 +429,8 @@ Each connection (session) in XMPP has an associated “resource”, in addition 
 There is a connection limit per JID (so per user) of 10 simultaneous connections. The limit is global and applies to any type of connection: WebSocket, BOSH and plain XMPP.
 The XMPP API operates on the same XMPP server as presence and chat functionality. Therefore, care must be taken that these two do not conflict. Besides using a unique resource for the API connection, set your API client to [**invisible mode**](https://xmpp.org/extensions/xep-0126.html){:target="_blank"}. Also, use a negative priority in the client’s presence packet to disallow chat message delivery. **NOTE: the API client must send at least one presence available packet in order to receive pubsub-messages.**
 
+Please note: after 20 incorrect login attempts, the source IP address will be blocked from logging in to XMPP for 10 minutes. Especially when logging in programmatically, avoid retrying on authentication errors too often.
+
 #### Getting data
 
 After connecting and authenticating, most applications will want to retrieve the current state of the platfrom in order to initialise and seed local data models and representations.
@@ -484,7 +486,6 @@ Below is an example for a single user.
     <extensions>333</extensions>
 </user>
 ```
-See the [User and related types](#user-and-related-types) section for the relevant XML schemas.
 
 #### Queue
 
@@ -513,7 +514,6 @@ Below is an example for a single queue.
     <xmppJid>queue-641</xmppJid>
 </queue>
 ```
-See the [Queue and related types](#queue-and-related-types) section for the relevant XML schemas.
 
 #### Call
 
@@ -553,7 +553,6 @@ Below is an example of a call.
     </properties>
 </call>
 ```
-See the [Call and related types](#call-and-related-types) section for the relevant XML schemas.
 
 #### Callpoint
 
@@ -569,8 +568,6 @@ Each callpoint is one of the following types:
 - `callpointExternal` - A phone number that is external to the {{site.compass.reseller.prodname}} platform.
 
 Since each external or internal number has a dialplan attached, each new call starts out with a `callpointDialplan` destination callpoint. Both the destination and source callpoints of a call can change as the call gets routed through the platform, or as calls are forwarded.
-
-See the [Callpoint and related types](#callpoint-and-related-types) section for the relevant XML schemas.
 
 #### Interpreting Call Data
 
@@ -619,11 +616,11 @@ The procedure to connect the user to one of the agents, is mostly analogous with
 ### Requests and Responses
 
 RPC-style requests can be performed over the XMPP connection as well. Both requests and responses are wrapped IQ stanzas, as defined in XMPP-Core. Requests have to be sent to the `phone` subdomain of the main XMPP host: `phone.uc.{{site.compass.reseller.domain}}`.
-This section contains examples of the most-frequently used requests and their responses. For a rigorous description of all valid requests and responses, see the XML schemas in the [Requests and related types](#requests-and-related-types) and the [Responses to requests](#responses-to-requests) sections. Schemas for pubsub subscription requests can be found in the relevant XMPP standards, and are not repeated here.
+This section contains examples of the most-frequently used requests and their responses. For a rigorous description of all valid requests and responses, see the XML schemas in the [XSD section]{(#appendix-b-schemas). Schemas for pubsub subscription requests can be found in the relevant XMPP standards, and are not repeated here.
 
 #### Example of a GetCompany Request
 
-As described before in the [Getting data](#getting-data) section, the `getcompany` request is sent to retrieve the company of the user for which the XMPP session has been set up. The `getcompany` request does not have any parameters. See the [Requests and related types](#requests-and-related-types) for the formal XML schema.
+As described before in the [Getting data](#getting-data) section, the `getcompany` request is sent to retrieve the company of the user for which the XMPP session has been set up. The `getcompany` request does not have any parameters.
 
 ##### Request
 
@@ -651,7 +648,7 @@ The API responds with an id and unique name for the company.
 
 #### Example of a Get Request
 
-After the company-name is known, additional get requests can be sent. These requests can be used to retrieve the list of users, queues or calls. Which list of objects to retrieve can be configured by setting the `type` attribute of the `filter` element to either `user`, `queue` or `call`. Optionally, the `history` attribute can be specified. If the history attribute is set to `true` and the type is `call`, the platform will return some past calls as well as all currently ongoing calls. See the [getRequest](#getrequest) for the formal XML schema, describing all the legal options.
+After the company-name is known, additional get requests can be sent. These requests can be used to retrieve the list of users, queues or calls. Which list of objects to retrieve can be configured by setting the `type` attribute of the `filter` element to either `user`, `queue` or `call`. Optionally, the `history` attribute can be specified. If the history attribute is set to `true` and the type is `call`, the platform will return some past calls as well as all currently ongoing calls.
 
 ##### Request
 
@@ -766,7 +763,7 @@ Soon to be followed by a message that the client is subscribed to the requested 
 
 Receiving real-time notifications through the XMPP `pubsub` mechanism, is the main strength of the XMPP API compared to other APIs. Receiving these notifications is simple. As explained before in the [Receiving notifications](#receiving-notifications) section, a single subscription to the node of your company-id suffices to receive all notifications.
 
-This section contains some basic information about notifications. For a rigorous break-down of all notifications that can be received and their formats, refer to the relevant XML schemas in the [Generic Notification types](#generic-notification-types), [User notifications and related types](#user-notifications-and-related-types), [Queue notifications and related types](#queue-notifications-and-related-types) and [Call notifications and related types](#call-notifications-and-related-types).
+This section contains some basic information about notifications. For a rigorous break-down of all notifications that can be received and their formats, refer to the [XSD schema](#appendix-b-schemas).
 
 All notifications are wrapped in a `notification` element with the following attributes:
 
@@ -1026,8 +1023,8 @@ Receive:
 
 ### Appendix B: Schemas
 
-The XML schema's are available for download in `xsd` format.
-Every XML response from the server notifies the user of the schema that it can be verified against, by specifying the correct type-name in the `xsi:type` attribute of the element. Requests to the server may include a `xsi:type` attribute to indicate the correct schema to the server, but this is not required. However, if the `xsi:type` attribute is included, it must be correct.
+The XML schemas are available for download in `xsd` format.
+Every XML response from the server notifies the user of the schema that it can be verified against, by specifying the correct type-name in the `xsi:type` attribute of the element. Requests to the server may include an `xsi:type` attribute to indicate the correct schema to the server, but this is not required. However, if the `xsi:type` attribute is included, it must be correct.
 
  - [XSD data types](https://www.{{site.compass.reseller.domain}}/docs/xsd/data.xsd)
  - [XSD for notifications](https://www.{{site.compass.reseller.domain}}/docs/xsd/notifications.xsd)

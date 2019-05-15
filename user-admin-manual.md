@@ -6,6 +6,8 @@ description: A manual for both users and administrators, using and setting up yo
 ---
 # User Manual
 
+Last updated: {{ site.time | date: '%B %d, %Y' }}
+
 ## Online management and logging in
 
 You can find {{site.compass.reseller.prodname}} at [{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/).
@@ -140,22 +142,35 @@ It is possible the administrator of your organisation has limited the use of cal
 
 ## XMPP chat
 
-This manual is based on Pidgin. This XMPP client is available for Windows and Linux. For other operating systems, you can use Adium (Mac OS X) [adium.im](https://adium.im/){:target="_blank"}, or any other XMPP client.
+For connecting to XMPP chat you can use any XMPP client.
 
-Please use this settings to setup your XMPP client:
+### Clients
 
-* Username: your-username@uc.{{site.compass.reseller.domain}}
+Desktop clients:
+* Gajim for Windows and Linux - [gajim.org](https://gajim.org/){:target="_blank"}
+* Swift for OSX/macOS - [swift.im](https://www.swift.im/){:target="_blank"}
+
+Mobile clients:
+* Conversations for Android - paid from [Google Play](https://play.google.com/store/apps/details?id=eu.siacs.conversations){:target="_blank"} or free (donation) from [f-droid.org](https://f-droid.org/){:target="_blank"}
+
+For more clients we suggest having a look at [xmpp.org/software/clients.html](https://xmpp.org/software/clients.html){:target="_blank"}
+
+### Configuration
+Please use these settings to set up your XMPP client:
+
+If only a username and a password is requested and there is no separate XMPP server input field, use a so called *user address*, Jabber ID or JID:
+* Username/JID: your-username@uc.{{site.compass.reseller.domain}}
 * Password: your-password
 
-### Installing Pidgin
-
-Download Pidgin here: [pidgin.im](https://www.pidgin.im/){:target="_blank"}.
-At first start Pidgin will ask for you account details. Fill in the following details:
-
-* Address: your-username@uc.{{site.compass.reseller.domain}}
+If username and hostname are separate input fields:
+* Username: your-username
+* Hostname / XMPP server: uc.{{site.compass.reseller.domain}}
 * Password: your-password
 
-The Add button will add your account to Pidgin.
+If your organisation makes use of a company domain (your username looks like 'user@example.com' instead of 'user@uc.{{site.compass.reseller.domain}}'), you might need to set a Connect Server in your client's settings:
+* Connect Server: uc.{{site.compass.reseller.domain}}
+
+Note: after 20 incorrect login attempts, the source IP address will be blocked from logging in to XMPP for 10 minutes. 
 
 # Administrator Manual
 
@@ -348,9 +363,9 @@ If you click Dialplan you will find several options to adjust the phone system o
 
 Extensions are the 2, 3, 4 or 5 digit numbers at which you can be reached through the internal network. To avoid confusion for example with emergency telephone numbers like 112, the first number of extensions can not be 0 or 1. You can create extensions in the range from 20 to 99, 200 to 998 (with the exception of 911), 2000 to 9999 and 20000 to 99999. You create an extension for one of your colleagues. Your colleague can use this extension to log in on any phone by pressing \*1 followed by the extension. Next the PIN is prompted to be entered, but only when a PIN is set.
 
-By clicking on the description in the extension overview, you open the dial plan, where the desired path for an incoming call can be decided. This dial plan will be explained elsewhere in this manual. A green check mark behind a name/extension means a dialplan has been configured for this extension. In the given example, Paco Smit, extension 206, does not have a dialplan configured.
+By clicking on the description in the extension overview, you open the dial plan, where the desired path for an incoming call can be decided. A green check mark behind a name/extension means a dialplan has been configured for this extension.
 
-By clicking on one of the categories the overview is sorted. In the example the overview is sorted by number.
+By clicking on one of the categories the overview is sorted.
 
 You can add a new extension by clicking 'Add new extension', underneath the overview. The 'Add extension' page loads. Enter the internal number in the 'Extension' field and in 'Description' a name corresponding to the extension, which will be visible in the overview list. This can be an extension number or a more detailed description like someone's name. Click 'Save'.
 
@@ -529,7 +544,7 @@ When finished filling out the desired options for the user, click Save.
 
 To see a user's basic information and to set more options, click a user's name in the overview to go to the User information page. This page contains the user's name, email address, username, language and its identities.
 
-The user can be edited by clicking Edit user on the User information page. On the Edit user page the Full name, email address, PIN for login on a phone and language can be changed. If the desired changes have been made click Save, or Cancel to discard.
+The user can be edited by clicking Edit user on the User information page. On the Edit user page the Full name, email address, PIN for login on a phone, language, and additional features can be changed. The features incur extra monthly charges, and can be changed after clicking the 'Edit features' button. If the desired changes have been made click Save, or Cancel to discard.
 
 The user's identities can be edited by clicking the Edit button (pencil icon) to the right of the identity's name on the Users overview page. To get more information on the options available for an identity, see the [Identities](#identities) section.
 
@@ -544,6 +559,14 @@ To log the selected user on and off on a phone using the web interface, go to Lo
 Settings can be used to view and change the user's personal and phone information, set identity call forwarding and view voicemail and queues information. For more information, see the [Settings](#settings) section.
 
 If you wish to permanently delete a user click the remove button (bin icon) behind the user's name in the Users overview. You will be requested to confirm deletion.
+
+### Additional features
+
+Users can be edited to enable additional features. These features incur monthly charges. Contact your reseller for more information.
+
+The following features are currently available:
+
+* **Call control API**: Enable the REST API calls that allow external applications to perform call control. Refer to the REST schema to see the exact calls that become available when enabling this feature.
 
 ### User rights
 
@@ -570,7 +593,7 @@ The following options can be set when creating a new identity:
 * **Extension**: If the identity needs to have its own internal extension assigned, this is where it can be created. It can not be an existing extension, the new extension will be created upon adding the identity
 * **Outbound number**: When set to Internal calls only (default), the user is not able to call to an external number, only to extensions within the company. When set to an external number, the user is able to make calls outside of the company. The number selected will be set as the caller ID. This option is only available if an external number has been added to the company.
 * **Voicemailbox**: Set the voicemailbox to which incoming messages are delivered
-* Hide caller ID: When checked the caller ID of the identity will not be visible to the receiving party
+* **Hide caller ID**: When checked the caller ID of the identity will not be visible to the receiving party
 * **Confirm received call**: When enabled the destination will be prompted to confirm answering the forwarded call by pressing a key on the phone. When denied, the call will return to the dial plan. If no other option is set, it will be terminated.
 * **Record calls**: When enabled all incoming and outgoing calls of this identity will be recorded. Enabling this option will unveil three more fields. An Email recordings to field where an email address can be entered where the recordings will be sent. A disclaimer field which needs to be read and agreed upon by checking the I Agree check box.
 
@@ -705,6 +728,7 @@ In the dial plan editor, you can create and alter dial plans by dragging and dro
   * End call
   * Busy
   * Prefix
+  * DTMF input
 * Persons
 * Prompts
 * Queues
@@ -724,7 +748,7 @@ The list of elements with which a dial plan can be made consists of the created 
 
 This category of dial plan elements contains Dialplan switch, IVR menu, Number recognition and Time based routing.
 
-* **Dialplan switch**
+**Dialplan switch**
 
   If a call should be routed differently depending on a condition set by a user, you can use a Dialplan switch. This for example allows a user to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
 
@@ -736,7 +760,7 @@ This category of dial plan elements contains Dialplan switch, IVR menu, Number r
 
   If you have created a Dialplan switch, there are two ways to read and change the current setting. First by going to the Dialplan switches page in Compass, see the [Dialplan switch](#dialplan-switch) section. Second, by using a service code on your phone, as described in the [Set dialplan Switch](#55-set-dialplan-switch) section. Additionally, in the dial plan of the extension containing the switch the current setting of the switch is indicated by a check mark in the block of the selected setting.
 
-* **IVR menu**
+**IVR menu**
 
   If a call should be routed differently based on a choice made by the caller, you can use an Interactive Voice Response (IVR) Menu. This for example allows a caller to press '1' for support, and '2' for sales.
 
@@ -744,7 +768,7 @@ This category of dial plan elements contains Dialplan switch, IVR menu, Number r
 
   Now simply drag dial plan elements to the branches to configure what happens if a caller presses that key.
 
-* **Number recognition**
+**Number recognition**
 
   If a call should be routed differently depending on the number it's calling from, you can use Number recognition. This for example allows for different dial plan branches for different countries of origin, or routing a customer directly to a specific support agent. Anonymous calls can be routed separately.
 
@@ -766,7 +790,7 @@ This category of dial plan elements contains Dialplan switch, IVR menu, Number r
 
   Do this for every branch, and make sure that every number (including anonymous) you wish to route has a match in one of the branches.
 
-* **Time based routing**
+**Time based routing**
 
   If a call should be routed differently depending on the time of day, day of the week, or (part of) the month, you can use Time based routing. This for example allows you to play different prompts during the day, such as 'Good morning' and 'Good afternoon'.
 
@@ -786,13 +810,18 @@ A conference box element will answer incoming calls automatically and ask for a 
 
 #### Miscellaneous
 
-This category of dial plan elements contains End call, Busy, and Prefix.
+This category of dial plan elements contains End call, Busy, Prefix and DTMF input.
 
-* **End call**: if this element is encountered in the dial plan before a call is answered, the call will end with a "Temporarily not available" status. If the call was answered earlier in the dial plan, and the call continued after that, it will end with a "Normal call clearing" status.
+**End call**: if this element is encountered in the dial plan before a call is answered, the call will end with a "Temporarily not available" status. If the call was answered earlier in the dial plan, and the call continued after that, it will end with a "Normal call clearing" status.
 
-* **Busy**: a call encountering this element will end with a "Busy" status.
+**Busy**: a call encountering this element will end with a "Busy" status.
 
-* **Prefix**: if a call encounters this element, a configurable text will show in the display of the phone receiving the call together with the calling number. This can help to identify through which number a caller is calling. To set a prefix, drag the element in the dial plan and click on it to configure the text.
+**Prefix**: if a call encounters this element, a configurable text will show in the display of the phone receiving the call together with the calling number. This can help to identify through which number a caller is calling. To set a prefix, drag the element in the dial plan and click on it to configure the text.
+
+**DTMF input**: this element reads DTMF (digit) input from the caller. Use a fixed-length input if the amount of digits is fixed, ie. a 4-digit pincode.
+If variable-length is selected, the caller ends the input using the pound sign (#). Pressing the star (*) resets the input. DTMF input from the caller can be read by using the [{{site.compass.reseller.prodname}} XMPP API](developers-manual.html#{{ site.compass.reseller.prodname | append: " XMPP API" | slugify }}).
+
+*You are advised to use the selected voice prompt to instruct the caller on the usage of this element; for example, mention that input can be ended with the pound sign for variable-length inputs.*
 
 #### Persons
 
