@@ -10,7 +10,7 @@ Last updated: {{ site.time | date: '%B %d, %Y' }}
 
 ## Online management and logging in
 
-You can find {{site.compass.reseller.prodname}} at [{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/).
+You can find {{site.compass.reseller.prodname}} at [www.{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/).
 
 You need to enter your username and password and press 'Log on' to enter the site.
 
@@ -29,8 +29,8 @@ Here you can find which phone you are currently logged on to and see which exten
 The voicemail section will tell you if you have any messages waiting in your voicemail boxes.
 
 You are able to reach the voicemail box by phone by doing either:
-* Call 1233 with a logged on user and enter the PIN when prompted
-* Call the phone number for which the voicemail box is set, press \* during the welcome message and enter the PIN when prompted
+* Call 1233 with a logged on user and enter the PIN code when prompted
+* Call the phone number for which the voicemail box is set, press \* during the welcome message and enter the PIN code when prompted
 
 The structure of the voicemail menu is as follows:
 * Main menu - You have X new and Y old messages. If there are any messages, they are played. If not, the settings menu is played.
@@ -51,16 +51,16 @@ The structure of the voicemail menu is as follows:
 * These are the choices in the settings menu:
   * 1 Play welcome message
   * 2 Record welcome message
-  * 5 Change PIN
+  * 5 Change PIN code
   * \* Main menu
 
 ### Call forwarding
 
 Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer call forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
 
-### Dialplan switches
+### Dial plan switches
 
-This list contains up to 10 dialplan switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the dialplan switch.
+This list contains up to 10 dial plan switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the dial plan switch.
 
 ### Queues
 
@@ -72,11 +72,11 @@ You can change your telephony settings by dialling service codes. Service codes 
 
 ### \*1: Log on and log off from your phone
 
-By dialling \*1, you can log on to your phone. If you were not logged on, you will hear a voice, asking you to enter your PIN, followed by the pound key (\#). If you have configured a PIN for your extension, you will be requested to enter the code as well. If the PIN is correct, you will hear a voice indicating you have been logged on.
+By dialling \*1, you can log on to your phone. If you were not logged on, you will hear a voice, asking you to enter your extension, followed by the pound key (\#). If you have configured a PIN code for your extension, you will be requested to enter the code as well. If the PIN code is correct, you will hear a voice indicating you have been logged on.
 
-If a PIN is not configured for your extension, you will not be asked for it either. When the entered extension is known within your company, a voice will directly tell you you have been logged on.
+If a PIN code is not configured for your extension, you will not be asked for it either. When the entered extension is known within your company, a voice will directly tell you you have been logged on.
 
-Whenever you enter an invalid extension, you will be informed of this and the phone will be hung up immediately. If you enter a correct extension, but an invalid PIN, you may retry your PIN up to two times. Therefore, if you enter an invalid PIN three times in a row, the phone will be hung up.
+Whenever you enter an invalid extension, you will be informed of this and the phone will be hung up immediately. If you enter a correct extension, but an invalid PIN code, you may retry your PIN code up to two times. Therefore, if you enter an invalid PIN code three times in a row, the phone will be hung up.
 
 If you were already logged on to the phone and dial \*1, you will be logged off of your phone. This will also be indicated by the voice, saying “goodbye”.
 
@@ -121,14 +121,14 @@ When you dial the same service code again, you will be unpaused in this queue. I
 \*49
 Unpause all queues.
 
-### \*55: Set dialplan switch
+### \*55: Set dial plan switch
 
-In order to set or check the status of a dialplan switch you can dial a servicecode starting with \*55. This code needs to be followed by \* and the number of the dialplan switch, then another \* and the setting of the switch. The number of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
+In order to set or check the status of a dial plan switch you can dial a service code starting with \*55. This code needs to be followed by \* and the number of the dial plan switch, then another \* and the setting of the switch. The number of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
 Here are a few examples in order to provide some clarification:
 
-\*55\*9 When dialling dialplan switch 9, a prompt will identify the current setting of switch 9. This setting is a number.
+\*55\*9 When dialling dial plan switch 9, a prompt will identify the current setting of switch 9. This setting is a number.
 
-\*55\*9\*(number between 0 and 9) Change the setting of the dialplan switch to the entered number. Choose 0 for setting 10. Your administrator can configure the dialplan for each individual setting.
+\*55\*9\*(number between 0 and 9) Change the setting of the dial plan switch to the entered number. Choose 0 for setting 10. Your administrator can configure the dial plan for each individual setting.
 
 ### \*8: Pickup of a call coming in on another phone
 
@@ -170,7 +170,9 @@ If username and hostname are separate input fields:
 If your organisation makes use of a company domain (your username looks like 'user@example.com' instead of 'user@uc.{{site.compass.reseller.domain}}'), you might need to set a Connect Server in your client's settings:
 * Connect Server: uc.{{site.compass.reseller.domain}}
 
-Note: after 20 incorrect login attempts, the source IP address will be blocked from logging in to XMPP for 10 minutes. 
+Note: after 20 incorrect login attempts, the source IP address will be blocked from logging in to XMPP for 10 minutes.
+
+Warning: in organisations with many users (hundreds or more) the contact list might not contain all contacts because of a platform limitation.
 
 # Administrator Manual
 
@@ -185,10 +187,9 @@ You need to enter your username and password and press Login to enter the site.
 There are several levels which vary according to the user's rights and the availability of the buttons. These levels are described below.
 
 1. **End-user**: This shows the options My settings and Log out. You can adjust personal settings, see which phone is available and manage forwarding and queue settings.
-2. **Department manager**: Besides the above-stated options, there is an option Manage. Here you can adjust the dial plan of your department, create and manage users and groups, and add phones. If there is a group of users that work for multiple departments you can only manage the ones that belong to one department.
-3. **Organisation manager**: You can manage everything within your own organisation.
-4. **Reseller**: You have an extra button named Organisations. Here you can select the organisation you want to manage, and use the menu Manage to adjust as needed.
-5. **Root Reseller**: You are able to manage all resellers.
+2. **Organisation manager**: You can manage everything within your own organisation.
+3. **Reseller**: You have an extra button named Organisations. Here you can select the organisation you want to manage, and use the menu Manage to adjust as needed.
+4. **Root Reseller**: You are able to manage all resellers.
 
 ## Quick Start Guide
 
@@ -217,7 +218,7 @@ To be able to function a company needs at least the following elements:
 
 Adding an external number is the first step. You will need an external number to enter at the next step, add a new user.
 
-1. Go to 'Manage', 'Dialplan', 'External numbers'.
+1. Go to 'Manage', 'Dial plan', 'External numbers'.
 2. Click 'Add external number'.
 3. Enter the external number, description and Name shown at outbound call. Click 'Save'.
 4. The new external number had been added.
@@ -240,7 +241,7 @@ Adding an external number is the first step. You will need an external number to
 
 If a user hasn't been given an extension when he or she was added, you can enter one here.
 
-1. Go to 'Manage', 'Dialplan', 'Extensions'.
+1. Go to 'Manage', 'Dial plan', 'Extensions'.
 2. Click 'Add extension'.
 3. Enter the extension and description. Click 'Save'.
 4. The new extension has been added.
@@ -249,7 +250,7 @@ If a user hasn't been given an extension when he or she was added, you can enter
 
 Please enter a very simple dial plan at first, for example, call > user. Try to call to +3185-7739999 and also execute an incoming test call. If this doesn't work, find out where the error lies. If this does work, you can enter a more extensive dial plan. Dial plans can be entered for both extensions and external numbers. This example features an external number.
 
-1. Go to 'manage', 'Dailplan', 'External numbers'.
+1. Go to 'Manage', 'Dial plan', 'External numbers'.
 2. Choose the number you want to add a dial plan to.
 3. Enter the desired elements, for example, time-based routing, users, voice prompts or an IVR menu. You can find these elements (if they have been added before) at the right below 'Elements'.
 4. Save the dial plan by clicking on the Save button, in the top right corner of the dial plan canvas.
@@ -271,11 +272,11 @@ By selecting a reseller you have write permissions to in the Organisations overv
 
 When finished click Save.
 
-You can add an organisation by clicking Add company. Enter the full and abbreviated name of the company. The latter should be between 2 and 12 characters long and can only contain the lowercase letters A through Z and digits. Leave the SIP domain as-is. Also, select the desired default language of the new company. Finally, click Save.
+You can add an organisation by clicking Add company. Enter the full and abbreviated name of the company. The latter should be between 2 and 12 characters long and can only contain the lowercase letters A through Z and digits. Leave the SIP domain as is. Also, select the desired default language of the new company. Finally, click Save.
 
 Note: if you were managing another company, you should first reselect your reseller from the Organisations menu. Otherwise, you will remain at the organisation level and the option Add company will not be shown.
 
-In order to configure a domain (example: example-domain.ext) for a Compass organisation, the following has to be set:
+In order to configure a domain (example: example-domain.ext) for a {{site.compass.reseller.prodname}} organisation, the following has to be set:
 
 | Host | Type | Priority | TTL\* | Value (weight, port, server) |
 | --- | --- | --- | --- | --- |
@@ -296,7 +297,7 @@ Summarizing, the end user must set:
 Note:
 
 * If these DNS entries don't exist, certain features will not function well or not at all.
-* Compass checks the DNS settings when adding the domain to the company, and will not allow adding a domain if DNS is not correctly configured. Please consult with your DNS provider for more information.
+* {{site.compass.reseller.prodname}} checks the DNS settings when adding the domain to the company, and will not allow adding a domain if DNS is not correctly configured. Please consult with your DNS provider for more information.
 
 After creating the required DNS records, you can double check the results with the "dig" command line tool (on Linux/Unix/macOS) like this:
 
@@ -322,10 +323,10 @@ Note:
 A company can be edited by clicking Edit organisation on the Manage page of the company you wish to edit. The Edit organisation page loads, where you can modify the following settings:
 * **Organisation name**: Edit the name of the organisation
 * **Music on hold**: This is the default music played when a caller is put on hold and no other element within {{site.compass.reseller.prodname}} has music specified
-* **Default CLI**: Sets the default outgoing phone number for external calls. If a user is not logged in on a phone, or only internal calls is set for a user who calls for exmple an emergency service number from a registered phone, this will be the phone number visible for the receiving party
+* **Default CLI**: Sets the default outgoing phone number for external calls. If a user is not logged in on a phone, or only internal calls is set for a user who calls for example an emergency service number from a registered phone, this will be the phone number visible for the receiving party
 * **Default Codec Profile**: When set to 'Default', high quality audio codecs are selected. When 'Low bandwidth' is set, lower quality audio codecs will be provisioned. These lower quality codecs will use up less bandwidth, but audio will be of a lesser quality as well. 'Default' is the advised setting
-* **Select language**: The language set in this field will be the default language for the company. If individual users wish to use a different language, they can change this in their user settings. (referentie naar figuur in hoofdstuk gebruikers, nog toe te voegen)
-* **Call-Pickup within group**: When enabled, picking up a call on another user's phone is only allowed when both users are in the same group. By default this option is disabled, which allowes users to pick up any incoming call within the organisation
+* **Select language**: The language set in this field will be the default language for the company. If individual users wish to use a different language, they can change this in their user settings.
+* **Call-Pickup within group**: When enabled, picking up a call on another user's phone is only allowed when both users are in the same group. By default this option is disabled, which allows users to pick up any incoming call within the organisation
 * **Change the domain name for this company (link)**: Redirects to the Edit company domain page, where a company domain can be set or edited. For more information on this subject, see the [Add an Organisation](#add-an-organisation-1)
 On the Edit organisation page, click 'Save' to confirm any changes made or Cancel if you wish to discard all changes.
 
@@ -340,8 +341,8 @@ Adding a reseller can be done by clicking Add reseller, but keep in mind you hav
 On the Add reseller page, the following options can be set:
 
 * **Name reseller**: Fill out the name of the reseller
-* **E-mail address**: The email address filled out in this field will be used as the sender address in password emails to users. Notifications about added or deleted users will be sent to this address as well.
-* **Base domein**: Only applies when creating white label resellers. Leave empty otherwise.
+* **Email address**: The email address filled out in this field will be used as the sender address in password emails to users. Notifications about added or deleted users will be sent to this address as well.
+* **Base domain**: Only applies when creating white label resellers. Leave empty otherwise.
 * **Web interface URL**: This URL will be used as the URL to the {{site.compass.reseller.prodname}} web interface in password emails to users.
 * **Select language**: The language selected will be the default language used for this reseller
 * **No-reply email address**: This will be the email address used as the sender address in voicemail and call recording emails
@@ -349,21 +350,23 @@ On the Add reseller page, the following options can be set:
 * **Default trunk**: Trunk assigned to new organisations on creation
 When finished, click Add.
 
+**A note regarding email delivery:** Make sure that the email domains used for the fields 'Email address' and 'No-reply email address' allow {{site.compass.reseller.prodname}} to send email on behalf of those domains. This will help prevent spam filters from blocking emails. Include our SPF entry in the DNS SPF record of the domains, like so: `v=spf1 include:spf.{{site.compass.reseller.domain}} ~all`
+
 If you wish to review the settings of a reseller, select the reseller in the Organisations overview and click Manage in the main menu. On the Manage page you can click Edit organisation to edit the reseller.
 
 To permanently delete a reseller, click Delete organisation. You will be requested to confirm the deletion. In order to be able to remove a reseller, all companies within this reseller should first be deleted or moved to another reseller.
 
 ## Manage
 
-Department or organisation managers can manage and configure various options and set up dial plans. The dial plan will be discussed elsewhere in this manual.
+Organisation managers can manage and configure various options and set up dial plans. The dial plan will be discussed elsewhere in this manual.
 
-If you click Dialplan you will find several options to adjust the phone system of your department according to your needs. A list appears allowing you to create new records for the elements under Dialplan. These links will take you to the Add resource screens which belong to that specific element. If you want to select the element itself, you don't click on Dialplan but just hover your mouse over it followed by clicking on the element of your choice.
+If you click Dial plan you will find several options to adjust the phone system of your department according to your needs. A list appears allowing you to create new records for the elements under Dial plan. These links will take you to the Add resource screens which belong to that specific element. If you want to select the element itself, you don't click on Dial plan but just hover your mouse over it followed by clicking on the element of your choice.
 
 ### Extensions
 
-Extensions are the 2, 3, 4 or 5 digit numbers at which you can be reached through the internal network. To avoid confusion for example with emergency telephone numbers like 112, the first number of extensions can not be 0 or 1. You can create extensions in the range from 20 to 99, 200 to 998 (with the exception of 911), 2000 to 9999 and 20000 to 99999. You create an extension for one of your colleagues. Your colleague can use this extension to log in on any phone by pressing \*1 followed by the extension. Next the PIN is prompted to be entered, but only when a PIN is set.
+Extensions are the 2, 3, 4 or 5 digit numbers at which you can be reached through the internal network. To avoid confusion for example with emergency telephone numbers like 112, the first number of extensions can not be 0 or 1. You can create extensions in the range from 20 to 99, 200 to 998 (with the exception of 911), 2000 to 9999 and 20000 to 99999. You create an extension for one of your colleagues. Your colleague can use this extension to log in on any phone by pressing \*1 followed by the extension. Next the PIN code is prompted to be entered, but only when a PIN code is set.
 
-By clicking on the description in the extension overview, you open the dial plan, where the desired path for an incoming call can be decided. A green check mark behind a name/extension means a dialplan has been configured for this extension.
+By clicking on the description in the extension overview, you open the dial plan, where the desired path for an incoming call can be decided. A green check mark behind a name/extension means a dial plan has been configured for this extension.
 
 By clicking on one of the categories the overview is sorted.
 
@@ -422,7 +425,7 @@ You can add a new queue by clicking 'Add queue'.
 * **Callers can escape from this queue**: When enabled, a caller can press 1 to exit the queue. {{site.compass.reseller.prodname}} will ignore the maximum waiting time and will immediately continue to the next step in the dial plan. For example: set a periodic announcement with a prompt stating that many agents are occupied and a caller can choose to leave a voicemail message by pressing 1, so they can be called back at another time.
 Make sure the queue is followed by a next dial plan element, otherwise the queue will disconnect after pressing 1.
 * **Call waiting if agent is already in a call:** Enabled by default. This setting is only applicable if an agent has enabled call waiting on their phone. When disabled, this setting overrules the phone's call waiting setting and a second queue call will not be offered if an agent is already in a call.
-* **Max. number of people in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. When there are no succesive steps in the dialplan, the call will be disconnected.
+* **Max. number of people in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. When there are no successive steps in the dial plan, the call will be disconnected.
 * **Elapsed time in queue**: The ring time in seconds a call is offered to available agents in the queue.
 * **Maximum waiting time**: Time in seconds a call can stay in the queue. When passed, the call will continue to the next step in the dial plan.
 * **Weight**: The weight of this queue compared to other queues. If an agent is logged in to multiple queues, a call to a queue with a higher weight will be offered first. The default is 1 and the maximum is 5 (extreme weight).
@@ -439,7 +442,7 @@ Make sure the queue is followed by a next dial plan element, otherwise the queue
 * **Shortcode**: Code for the queue which can be used to log in and out of the queue on a phone by dialling \*48*, followed by the code entered here. This code has to be a value greater than 0 and can contain a maximum of 5 numbers.
 When finished setting up the queue click 'Save'.
 
-By clicking on the name of the queue in the overview the queue page loads. Here the queue's settings are displayed and users can be logged in and out of a queue as agents. The right list displayes available users in the company not logged in to the queue, the left list displayes agents in the queue.
+By clicking on the name of the queue in the overview the queue page loads. Here the queue's settings are displayed and users can be logged in and out of a queue as agents. The right list displays available users in the company not logged in to the queue, the left list displays agents in the queue.
 
 To add a user to the queue click the add button (plus icon) in the right column, to remove an agent from the queue click the remove button (minus icon) in the left column.
 
@@ -449,19 +452,19 @@ Click 'Save' to save any changes.
 
 ### Conference Box
 
-You can set up a conference call using a Conference box. Provide each participant of the conference call with the number at which the conference box can be reached and if necessary the PIN. The first person to call opens the conference call, and the other participants join in.
+You can set up a conference call using a Conference box. Provide each participant of the conference call with the number at which the conference box can be reached and if necessary the PIN code. The first person to call opens the conference call, and the other participants join in.
 
-You can add a new Conference box by clicking 'Add new conference box'. Enter the name of the box and if necessary the PIN. When finished click 'Save'.
+You can add a new Conference box by clicking 'Add new conference box'. Enter the name of the box and if necessary the PIN code. When finished click 'Save'.
 
-To edit a conference box, in the Conference box overview click the Edit button (pencil icon) to the right of the name of the box you wish to edit. On the Edit Conference box page the Name and PIN-code can be edited. To discard changes click Cancel, to save changes click Save.
+To edit a conference box, in the Conference box overview click the Edit button (pencil icon) to the right of the name of the box you wish to edit. On the Edit Conference box page the Name and PIN code can be edited. To discard changes click Cancel, to save changes click Save.
 
 Permanently deleting a conference box can be done by clicking the remove button (bin icon) in the conference box overview. You will be requested to confirm the deletion.
 
 ### Voicemail
 
-To add a new voicemail box, click 'Add new voicemail'. On the Add Voicemail page a definition and PIN-code need to be filled out. The definition can be a descriptive title, for example the name of the person or department the voicemail box wil be assigned to. Entering an email address is optional, this can be set to receive the voicemail audio file in your email box.
+To add a new voicemail box, click 'Add new voicemail'. On the Add Voicemail page a description and PIN code need to be filled out. The description can be a descriptive title, for example the name of the person or department the voicemail box will be assigned to. Entering an email address is optional, this can be set to receive the voicemail audio file in your email box.
 
-The voicemail box settings can be edited by clicking the Edit button (pencil icon) to the right of the voicemail box' name you wish to edit, on the overview page. The definition, PIN-code and email address can be changed. To discard changes click Cancel, to save changes click Save.
+The voicemail box settings can be edited by clicking the Edit button (pencil icon) to the right of the voicemail box' name you wish to edit, on the overview page. The description, PIN code and email address can be changed. To discard changes click Cancel, to save changes click Save.
 
 To permanently delete a voicemail box, in the Voicemail box overview click the remove button (bin icon) behind the box to be removed. You will be requested to confirm the deletion.
 
@@ -484,12 +487,12 @@ To edit a call forward, click the Edit button (pencil icon) in the overview. To 
 
 If you wish to permanently delete a call forward, click the remove button (bin icon) in the overview. You will be requested to confirm the deletion.
 
-### Dialplan switch
+### Dial plan switch
 
-When dialplan switches have been added to a dial plan in your company, this overview gives you a list of all the switches, their short code and current setting. For further details on how to add a dialplan switch, see the [Branches](#branches) section.
+When dial plan switches have been added to a dial plan in your company, this overview gives you a list of all the switches, their short code and current setting. For further details on how to add a dial plan switch, see the [Branches](#branches) section.
 
-To change the setting of a dialplan switch via the web interface, click the Edit button (pencil icon) to the right of the switch's name. On the Edit Dialplan switch page is an overview of all the available settings, with the current setting selected. Select the desired setting and click Save. In the Dialplan switch overview, the current setting is visible.
-Deleting a dialplan switch can be done by going to the extension's dial plan in which the switch is located. Click the X icon in the dialplan switch block to remove it from the dial plan and click Save.
+To change the setting of a dial plan switch via the web interface, click the Edit button (pencil icon) to the right of the switch's name. On the Edit Dial plan switch page is an overview of all the available settings, with the current setting selected. Select the desired setting and click Save. In the Dial plan switch overview, the current setting is visible.
+Deleting a dial plan switch can be done by going to the extension's dial plan in which the switch is located. Click the X icon in the dial plan switch block to remove it from the dial plan and click Save.
 
 ## Users and Groups
 
@@ -505,7 +508,7 @@ Groups can be used to limit the reach of a \*8 call pickup by first setting up g
 
 To add a new group, click Add group. Fill out a descriptive name for the group and click Save.
 
-Go to the Group information page by clicking on the group in the Groups overview. Here users can be added to the selected group by clicking the add button (plus icon) next to their username in the Non member of department list. Removing members is done by clicking the remove button (minus icon) next to the username in the departmental members list. Use the Filter field to do a quick search for a user and when finished click Save to keep the changes made.
+Go to the Group information page by clicking on the group in the Groups overview. Here users can be added to the selected group by clicking the add button (plus icon) next to their username in the Non-members of the group list. Removing members is done by clicking the remove button (minus icon) next to the username in the Members of the group list. Use the Filter field to do a quick search for a user and when finished click Save to keep the changes made.
 
 If you wish to change the name of the group, click Edit group on the Group information page. This can also be done by clicking the Edit button (pencil icon) to the right of the group name in the Groups overview.
 
@@ -517,7 +520,7 @@ In the departments overview you can see all departments within the company. The 
 
 To add a new department, click Add department in the Departments overview. On the Add department page fill out a descriptive name for the department and when finished click Save.
 
-Go to the Department information page by clicking on the department in the Departments overview. Here users can be added to the selected department by clicking the add button (plus icon) next to their username in the Non member of department list. Removing members is done by clicking the remove button (minus icon) next to the username in the departmental members list. Use the Filter field to do a quick search for a user and when finished click Save to keep the changes made.
+Go to the Department information page by clicking on the department in the Departments overview. Here users can be added to the selected department by clicking the add button (plus icon) next to their username in the Non-members of the department list. Removing members is done by clicking the remove button (minus icon) next to the username in the Members of department list. Use the Filter field to do a quick search for a user and when finished click Save to keep the changes made.
 
 If you wish to change the name of the department, click Edit department on the Department information page. This can also be done by clicking the Edit button (pencil icon) to the right of the department name in the Departments overview.
 
@@ -533,18 +536,18 @@ Go to Add user to add a new user to the organisation. Be aware that adding users
 * **Select language**: Select the desired language of the user. This will overrule the company default language setting for text on the web interface and prompts on the phone
 * **Username**: Will be generated while typing the Full name, but can also be customized. Can not contain capitals. This is the name that will be used to log in to {{site.compass.reseller.prodname}} and is visible on a phone's display on which the user has logged in
 * **Password**: Type a custom password with which the user can log in to {{site.compass.reseller.prodname}} web interface. Has to be left empty when password is auto generated
-* **E-mail**: Fill out the email address of the user. This is the address the auto generated password will be sent to, this field is mandatory when Submit login credentials is checked
-* **Submit login credentials**: Check this option when you want the password to be auto generated. An email address should be filled out.
+* **Email**: Fill out the email address of the user. This is the address the auto generated password will be sent to, this field is mandatory when Send login credentials is checked
+* **Send login credentials**: Check this option when you want the password to be auto generated. An email address should be filled out.
 * **Extension**: If the user needs to have its own internal extension assigned, this is where it can be created. It can not be an existing extension, the new extension will be created upon adding the user
-* **Definition**: When assigning an extension to the user, the definition is a short descriptive name given to the extension, which will be visible in the Extension overview. When no extension is assigned, this field can be left empty
-* **PIN-code for login**: Optional 1-4 number long code used for logging a user in on a phone securely
+* **Description**: When assigning an extension to the user, the description is a short descriptive name given to the extension, which will be visible in the Extension overview. When no extension is assigned, this field can be left empty
+* **PIN code for login**: Optional 1-4 number long code used for logging a user in on a phone securely
 * **Outbound number**: When set to Internal calls only (default), the user is not able to call to an external number, only to extensions within the company. When set to an external number, the user is able to make calls outside of the company. The number selected will be set as the caller ID. This option is only available if an external number has been added to the company.
 
 When finished filling out the desired options for the user, click Save.
 
 To see a user's basic information and to set more options, click a user's name in the overview to go to the User information page. This page contains the user's name, email address, username, language and its identities.
 
-The user can be edited by clicking Edit user on the User information page. On the Edit user page the Full name, email address, PIN for login on a phone, language, and additional features can be changed. The features incur extra monthly charges, and can be changed after clicking the 'Edit features' button. If the desired changes have been made click Save, or Cancel to discard.
+The user can be edited by clicking Edit user on the User information page. On the Edit user page the Full name, email address, PIN code for login on a phone, language, and additional features can be changed. The features incur extra monthly charges, and can be changed after clicking the 'Edit features' button. If the desired changes have been made click Save, or Cancel to discard.
 
 The user's identities can be edited by clicking the Edit button (pencil icon) to the right of the identity's name on the Users overview page. To get more information on the options available for an identity, see the [Identities](#identities) section.
 
@@ -635,20 +638,15 @@ Auto configuration is fully supported for these brands:
 * Snom
 * Yealink
 
-Some brands are partially supported:
-
-* Linksys
-* Aastra
-* Siemens
-
-SIP phones that are not (partially) supported can still be added to the platform, when configured as one of these types:
+SIP phones that are not supported can be added to the platform, when configured as one of these types:
 * Generic SIP Phone, for physical phones with a MAC address
-* Generic DECT, for all other phones
+* Generic SIP DECT phone for wireless phones, and
+* Generic SIP Softphone for software clients and mobile clients
 
 After clicking the Add phone button, you are able to enter a phone name, a phone type, and its MAC address. The MAC address can usually be found on a sticker on the bottom of the phone. If the specific phone you are adding is not in the list of supported phones, select Generic SIP Phone, or Generic SIP DECT.
 
-Depending on the chosen phone type, additional form fields may appear that allow for phone specific configuration, such as installing an expansion dial pad.
-Optionally, a VLAN ID may be provided. This is the code of the VLAN the phone should use to connect. If unsure, leave this empty. Usually a VLAN ID is not needed.
+Depending on the chosen phone type, additional form fields may appear that allow for phone specific configuration, such as installing an expansion pad.
+Optionally, a VLAN ID may be provided. This is the code of the VLAN the phone should use to connect. Valid values are between 1 and 4094. Ask your network administrator for details. If unsure, leave this empty. Usually a VLAN ID is not needed. To deconfigure a VLAN setting, enter the number 0. The next time the phone collects its configuration, it won't be in a VLAN anymore.
 
 After entering all of the details, click Save to add the phone to the company.
 
@@ -667,7 +665,7 @@ You are able to edit the sensitivity of the earpiece, headset microphone, and ph
 It's also possible to enable call waiting and call waiting indication. If you enable call waiting, you will be able to answer a second incoming call while already on the phone in another call. The second call will be indicated to you as configured. You can choose if you wish to answer the second call or not. If call waiting is not enabled, a second call will not be routed to your phone so you will not be disturbed.
 
 Add custom settings enables an administrator to configure custom phone settings by entering provisioning data which is merged into our default provisioning. These settings can be configured for an individual phone, or per phone type, which applies to all phones of the specified type within the company.
-Custom settings will override Compass settings and incorrect input could potentially break the phone's functionality.
+Custom settings will override {{site.compass.reseller.prodname}} settings and incorrect input could potentially break the phone's functionality.
 
 Options for custom settings are, for example, change a label or display text, remap a key, or set a speed dial to be able to have a designated log in button.
 Enter a parameter and value in the fields, click Save when done to push the altered configuration to the selected phone.
@@ -720,7 +718,7 @@ In the dial plan editor, you can create and alter dial plans by dragging and dro
 * Branches
   * Time based routing
   * IVR menu
-  * Dialplan switch
+  * Dial plan switch
   * Number recognition
 * Call forwarding
 * Conferences
@@ -742,23 +740,23 @@ Please note that you should always manually save any changes you've made to the 
 
 ### Dial plan elements
 
-The list of elements with which a dial plan can be made consists of the created resources, such as queues, prompts, persons, and special elements such as time based routers and dialplan switches. In the next chapters we'll describe how these elements can be used.
+The list of elements with which a dial plan can be made consists of the created resources, such as queues, prompts, persons, and special elements such as time based routers and dial plan switches. In the next chapters we'll describe how these elements can be used.
 
 #### Branches
 
-This category of dial plan elements contains Dialplan switch, IVR menu, Number recognition and Time based routing.
+This category of dial plan elements contains Dial plan switch, IVR menu, Number recognition and Time based routing.
 
-**Dialplan switch**
+**Dial plan switch**
 
-  If a call should be routed differently depending on a condition set by a user, you can use a Dialplan switch. This for example allows a user to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
+  If a call should be routed differently depending on a condition set by a user, you can use a Dial plan switch. This for example allows a user to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
 
-  To add a Dialplan switch, drag the element to a free slot. A pop-up for the settings will appear. Then enter a name, a Dialplan switch shortcode (used to identify the switch when changing or reading the branch), and the amount of switch branches you require. When ready, save the settings. The branches should now appear in the dial plan.
+  To add a Dial plan switch, drag the element to a free slot. A pop-up for the settings will appear. Then enter a name, a Dial plan switch shortcode (used to identify the switch when changing or reading the branch), and the amount of switch branches you require. When ready, save the settings. The branches should now appear in the dial plan.
 
   Optionally, you can give each branch a name by clicking on the branch element and filling in the form field.
 
   Now simply drag dial plan elements to the branches to configure what happens if a call is routed through that branch.
 
-  If you have created a Dialplan switch, there are two ways to read and change the current setting. First by going to the Dialplan switches page in Compass, see the [Dialplan switch](#dialplan-switch) section. Second, by using a service code on your phone, as described in the [Set dialplan Switch](#55-set-dialplan-switch) section. Additionally, in the dial plan of the extension containing the switch the current setting of the switch is indicated by a check mark in the block of the selected setting.
+  If you have created a Dial plan switch, there are two ways to read and change the current setting. First by going to the Dial plan switches page in {{site.compass.reseller.prodname}}, see the [Dial plan switch](#dial-plan-switch) section. Second, by using a service code on your phone, as described in the [Set dial plan Switch](#55-set-dial-plan-switch) section. Additionally, in the dial plan of the extension containing the switch the current setting of the switch is indicated by a check mark in the block of the selected setting.
 
 **IVR menu**
 
@@ -806,7 +804,7 @@ If at some point in the dial plan you would like to forward the call to a differ
 
 If you would like to have a conference box in your dial plan, drag it to an open slot in the dial plan.
 
-A conference box element will answer incoming calls automatically and ask for a PIN if required. A conference box is a dial plan end point, meaning elements placed after a conference box will not be executed.
+A conference box element will answer incoming calls automatically and ask for a PIN code if required. A conference box is a dial plan end point, meaning elements placed after a conference box will not be executed.
 
 #### Miscellaneous
 
@@ -818,7 +816,7 @@ This category of dial plan elements contains End call, Busy, Prefix and DTMF inp
 
 **Prefix**: if a call encounters this element, a configurable text will show in the display of the phone receiving the call together with the calling number. This can help to identify through which number a caller is calling. To set a prefix, drag the element in the dial plan and click on it to configure the text.
 
-**DTMF input**: this element reads DTMF (digit) input from the caller. Use a fixed-length input if the amount of digits is fixed, ie. a 4-digit pincode.
+**DTMF input**: this element reads DTMF (digit) input from the caller. Use a fixed-length input if the amount of digits is fixed, ie. a 4-digit PIN code.
 If variable-length is selected, the caller ends the input using the pound sign (#). Pressing the star (*) resets the input. DTMF input from the caller can be read by using the [{{site.compass.reseller.prodname}} XMPP API](developers-manual.html#{{ site.compass.reseller.prodname | append: " XMPP API" | slugify }}).
 
 *You are advised to use the selected voice prompt to instruct the caller on the usage of this element; for example, mention that input can be ended with the pound sign for variable-length inputs.*
@@ -857,100 +855,28 @@ If you would like to have all incoming calls handled by the front desk, create a
 
 ## Reports
 
-### Call Event Logging
+{{site.compass.reseller.prodname}} offers Call Detail Records and Events reports both as download in the web interface as well as through an HTTP API.
 
-For optimal freedom in reporting we offer Call Event Logging. This allows calls to be tracked step by step. In the future we will add even more events for a more detailed view of every call.
+Administrators can access 'CDRs and Events' in the {{site.compass.reseller.prodname}} web interface on the Manage page of the company.
 
-The Call Event Logging system is meant for automatic processing in Business Intelligence tools. The column names and values are in English unless it concerns user input.
+Developers can request the same information using our CDR and Events API documented below.
 
-Call Event Logging is not available via the web interface, but events can be downloaded using this URL-scheme:
+### Types of reports
 
-`https://files.{{site.compass.reseller.domain}}/events/$COMPANY_ID/calls?startTime=$TIME1&endTime=$TIME2`
+There are 5 types of reports available for download:
 
-The variables in this URL are:
-* `$COMPANY_ID`: the Company ID, as listed in the {{site.compass.reseller.prodname}} web interface on the Manage page for the company you want to request events for.
-* `$TIME1`: start time (UNIX timestamp, GMT time zone) - request events from this time.
-* `$TIME2`: end time (UNIX timestamp, GMT time zone) - request events up to this time.
-
-The columns in the response are:
-* `id`: a numeric, unique identification of an event. Numbers ascend in the order in which events were written.
-* `company_id`: a numeric, unique identification of a company.
-* `call_id`: a unique identification of a call. If a call is split (for example when a call is distributed amongst agent(s) in a queue) then this will generate one or more new calls with new call IDs.
-* `parent_id`: the original call ID. This is only provided if the call has been split.
-* `step`: a counter that indicates in which order events occurred. Starts at 0.
-* `timestamp`: time at which an event occurred. Formatted as UNIX timestamp + dot + milliseconds.
-* `caller_type`: indicates the type of caller. Can be either `identity`, `external`, `pbx`, `queue` or `unknown`.
-* `caller_state`: indicates the state of the caller. Can be either `connecting`, `ringing`, `answered`, `inactive` or `disconnected`.
-* `caller_id`, `caller_number` and `caller_desc`: more info about the caller, depending on caller type.
-* `callee_type`, `callee_state`, `callee_id`, `callee_number` and `callee_desc`: same as above, but for the receiving side. This will change while the call proceeds through the dial plan. For example, a call is answered by a queue first, then by an agent.
-* `state`: indicates the state of a call. Can be either `conn` (connecting), `ring` (ringing), `answered` or `down` (call ended). It's possible for a call to change state from answered to ringing, for example after an unattended transfer.
-* `end_reason`: indicates the reason the call was ended. Can be either `busy`, `caller` (caller ended the call) or `callee` (receiver ended the call).
-
-Note:
-* Events are not sorted in the response.
-* Event Logging is not real time. It can take a while for information to become available.
-* The Event Log may contain information for events that are not completed yet.
-
-The principles of Event Logging are as follows:
-A call has a source (a caller), and a destination (a callee). Both are endpoints. These endpoints change over time: for example, a call first reaches a dial plan, then a queue, and then a user (identity).
-
-For every destination, a call can have several states: connecting, ringing, and answered. If the call changes destination, the state of the call can change back from answered to ringing.
-
-Subcalls are usually the result of the call reaching a queue. If a call reaches a queue, the status changes to answered. This call has a call_id but no parent_id (call_id of the parent). For every agent available in the queue, a new subcall is set up from the queue to the agent. Agents can be called one by one, or multiple at a time, depending on queue settings and the availability of agents. Calls set up from the queue to agents have a new call_id, but also lists the original call_id as parent_id. If an agent answers the queue call, all subcalls are ended (status: down) and the original call gets the agent that answered as the new destination.
-
-### User Event Logging
-
-On top of Call Event Logging, we also offer User Event Logging. This allows you to track user actions, such as logging in and out on a phone or queue, and pausing and resuming receiving queue calls. In the future more events can be added.
-
-The User Event Logging system is meant for automatic processing in Business Intelligence tools. The column names and values are in English unless it concerns user input.
-
-User Event Logging is not available via the web interface, but events can be downloaded using this URL-scheme:
-
-`https://files.{{site.compass.reseller.domain}}/events/$COMPANY_ID/users?startTime=$TIME1&endTime=$TIME2`
-
-The variables in this URL are:
-* `$COMPANY_ID`: the Company ID, as listed in the {{site.compass.reseller.prodname}} web interface on the Manage page for the company you want to request events for.
-* `$TIME1`: start time (UNIX timestamp, GMT time zone) - request events from this time.
-* `$TIME2`: end time (UNIX timestamp, GMT time zone) - request events up to this time.
-
-The columns in the response are:
-* `id`: a numeric, unique identification of an event. Numbers ascend in the order in which events were written.
-* `timestamp`: time at which an event occurred. Formatted as UNIX timestamp + dot + milliseconds.
-* `company_id`: a numeric, unique identification of a company.
-* `company_name`: name of the company.
-* `user_id`: a numeric, unique identification of a user.
-* `user_name`: the login name of a user.
-* `user_fullname`: the full name of a user.
-* `identity_id`: a numeric, unique identification of the identity of a user.
-* `identity_name`: the name of the identity of a user.
-* `target_id`: the unique identification of the element which the event applies to. For example: if target_type is a queue, target_id contains the ID of the queue.
-* `target_name`: the name of the element which the event applies to. For example: if target_type is a queue, this will contain the full name of the queue.
-* `event_type`: the type of event. Can be either `pause`, `unpause`, `login` or `logoff`.
-* `target_type`: the type of element the event applies to. Can be either `queue` or `phone`.
-
-### Call Detail Records (CDRs)
-
-{{site.compass.reseller.prodname}} offers Call Detail Records in 3 separate files, each with a different type of content:
 * Company CDR: contains a record for every call that enters or leaves a company. A user calling the external number of the company that user is part of, means two records: one call leaving the company, and one entering it.
 * Queue CDR: contains a record for every call that is received by a user. A call between two users in the same company means two records.
 * User CDR: contains a record for every call that enters a queue, also if the queue call isn't answered.
-
-CDRs are available in the {{site.compass.reseller.prodname}} web interface on the Manage page of the company you want to download CDRs for.
-CDRs are also available for download through an API, similar to that of Call and User Event Logging:
-
-`https://files.{{site.compass.reseller.domain}}/cdr/$COMPANY_ID/$DATE/$CDR_TYPE.csv`
-
-The variables in this URL are:
-* `$COMPANY_ID`: the Company ID, as listed in the {{site.compass.reseller.prodname}} web interface on the Manage page for the company you want to request events for.
-* `$DATE`: date (YYYY-MM-DD) - request events from this day.
-* `$CDR_TYPE`: one of the three CDR types: `company`, `user` or `queue`.
+* Call Events: contains step by step events for all calls in the company, to track exactly how a call was handled by the platform.
+* User Events: contains user actions, such as logging in and out on a phone or queue, and pausing and resuming receiving queue calls.
 
 #### Company CDR
 
 The columns in the Company CDR are:
 * `call_id`: a unique identification of a call. If a call is split (for example when a call is distributed amongst agent(s) in a queue) then this will generate one or more new calls with new call IDs.
 * `start_time`: time at which the call started. Formatted as "YYYY-MM-DD mm:hh:ss".
-* `answer_time`: time at which the call was answered. Formatted as "YYYY-MM-DD mm:hh:ss". Incoming calls can also be answered by prompts or IVR-menu's. Empty if the call is not answered.
+* `answer_time`: time at which the call was answered. Formatted as "YYYY-MM-DD mm:hh:ss". Incoming calls can also be answered by prompts or IVR menus. Empty if the call is not answered.
 * `end_time`: time at which the call ended. Formatted as "YYYY-MM-DD mm:hh:ss".
 * `timezone`: time zone offset relative to UTC as defined in ISO 8601. Example: "+02:00"
 * `from_type`: the source type. Can be either `external` or `identity`.
@@ -992,7 +918,7 @@ The columns in the User CDR are:
 
 * `call_id`: a unique identification of a call. If a call is split (for example when a call is distributed amongst agent(s) in a queue) then this will generate one or more new calls with new call IDs.
 * `parent_id`: the original call_id, if a call is split as described above. Empty if the call is not split.
-* `start_time`: time at which the user was first involved in the call. Formatted as "YYYY-MM-DD mm:hh:ss". On incoming calls, a caller could have gone through IVR-menu's and prompts before a user gets involved.
+* `start_time`: time at which the user was first involved in the call. Formatted as "YYYY-MM-DD mm:hh:ss". On incoming calls, a caller could have gone through IVR menus and prompts before a user gets involved.
 * `answer_time`: time at which the call was answered. Formatted as "YYYY-MM-DD mm:hh:ss". Empty if the call is not answered.
 * `end_time`: time at which the call ended. Formatted as "YYYY-MM-DD mm:hh:ss". If the call was not answered, or a call was forwarded, the call could continue elsewhere.
 * `timezone`: time zone offset relative to UTC as defined in ISO 8601. Example: "+02:00"
@@ -1004,6 +930,95 @@ The columns in the User CDR are:
 By processing the User CDR in an application such as Excel, you can answer questions such as:
 * What was the average duration of calls answered by a user?
 * Which user missed the least calls?
+
+#### Call Events
+
+For optimal freedom in reporting we offer Call Event Logging. This allows calls to be tracked step by step. 
+
+The Call Event Logging system is meant for automatic processing in Business Intelligence tools. The column names and values are in English unless it concerns user input.
+
+The columns in the response are:
+* `id`: a numeric, unique identification of an event. Numbers ascend in the order in which events were written.
+* `company_id`: a numeric, unique identification of a company.
+* `call_id`: a unique identification of a call. If a call is split (for example when a call is distributed amongst agent(s) in a queue) then this will generate one or more new calls with new call IDs.
+* `parent_id`: the original call ID. This is only provided if the call has been split.
+* `step`: a counter that indicates in which order events occurred. Starts at 0.
+* `timestamp`: time at which an event occurred. Formatted in a human-readable format based on ISO8601 and adjusted to work with MS Excel.
+* `caller_type`: indicates the type of caller. Can be either `identity`, `external`, `pbx`, `queue` or `unknown`.
+* `caller_id`, `caller_number` and `caller_desc`: more info about the caller, depending on caller type.
+* `caller_state`: indicates the state of the caller. Can be either `connecting`, `ringing`, `answered`, `inactive` or `disconnected`.
+* `callee_type`, `callee_id`, `callee_number`, `callee_desc` and `callee_state`: same as above, but for the receiving side. This will change while the call proceeds through the dial plan. For example, a call is answered by a queue first, then by an agent.
+* `state`: indicates the state of a call. Can be either `conn` (connecting), `ring` (ringing), `answered` or `down` (call ended). It's possible for a call to change state from answered to ringing, for example after an unattended transfer.
+* `end_reason`: indicates the reason the call was ended. Can be either `busy`, `caller` (caller ended the call), `callee` (receiver ended the call) or `replace` (call ended with a (semi) attended transfer).
+
+Note:
+* Events are not sorted in the response.
+* Event Logging is not real time. It can take a while for information to become available.
+* The Event Log may contain information for events that are not completed yet.
+
+The principles of Event Logging are as follows:
+A call has a source (a caller), and a destination (a callee). Both are endpoints. These endpoints change over time: for example, a call first reaches a dial plan, then a queue, and then a user (identity).
+
+For every destination, a call can have several states: connecting, ringing, and answered. If the call changes destination, the state of the call can change back from answered to ringing.
+
+Subcalls are usually the result of the call reaching a queue. If a call reaches a queue, the status changes to answered. This call has a call_id but no parent_id (call_id of the parent). For every agent available in the queue, a new subcall is set up from the queue to the agent. Agents can be called one by one, or multiple at a time, depending on queue settings and the availability of agents. Calls set up from the queue to agents have a new call_id, but also lists the original call_id as parent_id. If an agent answers the queue call, all subcalls are ended (status: down) and the original call gets the agent that answered as the new destination.
+
+#### User Events
+
+User Events allow you to track user actions, such as logging in and out on a phone or queue, and pausing and resuming receiving queue calls.
+
+The events are meant for automatic processing in Business Intelligence tools. The column names and values are in English unless it concerns user input.
+
+The columns in the response are:
+* `id`: a numeric, unique identification of an event. Numbers ascend in the order in which events were written.
+* `timestamp`: time at which an event occurred. Formatted in a human-readable format based on ISO8601 and adjusted to work with MS Excel.
+* `company_id`: a numeric, unique identification of a company.
+* `company_name`: name of the company.
+* `event_type`: the type of event. Can be either `pause`, `unpause`, `login`, `logoff`, `remove` or `queuePickup`.
+* `user_id`: a numeric, unique identification of a user.
+* `user_name`: the login name of a user.
+* `user_fullname`: the full name of a user.
+* `identity_id`: a numeric, unique identification of the identity of a user.
+* `identity_name`: the name of the identity of a user.
+* `target_type`: the type of element the event applies to. Can be either `queue` or `phone`.
+* `target_id`: the unique identification of the element which the event applies to. For example: if `target_type` is a queue, `target_id` contains the ID of the queue.
+* `target_name`: the name of the element which the event applies to. For example: if `target_type` is a queue, this will contain the full name of the queue.
+
+### Downloading reports from the web interface
+
+The page 'CDRs and Events' allows you to select the desired report and the desired timeframe.
+
+Select a start and an end date, choose the type of report and choose the desired format. Default is CSV. If you select 'CSV for Excel' an extra header is added to the file that makes parsing in Microsoft Excel easier.
+
+A maximum of one month worth of data can be downloaded at a time. If you need reports on a longer period, split it up in chunks of one month each.
+
+### CDR API
+
+CDRs are available for download through an HTTP API at this endpoint:
+
+`https://files.{{site.compass.reseller.domain}}/cdr/$COMPANY_ID/$DATE/$CDR_TYPE.csv`
+
+The variables in this URL are:
+* `$COMPANY_ID`: the Company ID, as listed in the {{site.compass.reseller.prodname}} web interface on the Manage page for the company you want to request events for.
+* `$DATE`: date (YYYY-MM-DD) - request events from this day.
+* `$CDR_TYPE`: one of the three CDR types: `company`, `user` or `queue`.
+
+Reports are limited to one day per request.
+
+### Events API
+
+Call Events can be downloaded from the following URL:
+
+`https://files.{{site.compass.reseller.domain}}/events/$COMPANY_ID/calls?startTime=$TIME1&endTime=$TIME2`
+
+User Events can be downloaded using this similar URL:
+
+`https://files.{{site.compass.reseller.domain}}/events/$COMPANY_ID/users?startTime=$TIME1&endTime=$TIME2`
+
+The variables in these URLs are:
+* `$COMPANY_ID`: the Company ID, as listed in the {{site.compass.reseller.prodname}} web interface on the Manage page for the company you want to request events for.
+* `$TIME1`: start time (UNIX timestamp, GMT time zone) - request events from this time.
+* `$TIME2`: end time (UNIX timestamp, GMT time zone) - request events up to this time.
 
 ## Call recordings
 

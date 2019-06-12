@@ -321,13 +321,13 @@ Host: rest.{{site.compass.reseller.domain}}
 
 ### Changelog
 
-As of this moment, the API serves a two versions: v1 and v2.
+As of this moment, the API serves two versions: v1 and v2.
 
 #### V2
 
 V2 is the current version. In this version, there are a few major changes compared to V1:
 
-- The "full" endpoints like `/company/:id/fullUsers` are renamed to simply `/company/:id/users`, etc. If you want to retrieve only the basic information for a resource or entity, you can still do so using `/company/:id/resourcesFilteredor/company/:id/entitiesFiltered`.
+- The "full" endpoints like `/company/:id/fullUsers` are renamed to simply `/company/:id/users`, etc. If you want to retrieve only the basic information for a resource or entity, you can still do so using `/company/:id/resourcesFiltered` or `/company/:id/entitiesFiltered`.
 - The `/did` endpoints, already deprecated in V1, are now completely removed. Please switch to `/externalNumber` instead.
 
 Also, a large amount of new endpoints were made available. Creating and deleting several resource types via the API is now possible. Please refer to the API Reference for an overview.
@@ -433,7 +433,7 @@ Please note: after 20 incorrect login attempts, the source IP address will be bl
 
 #### Getting data
 
-After connecting and authenticating, most applications will want to retrieve the current state of the platfrom in order to initialise and seed local data models and representations.
+After connecting and authenticating, most applications will want to retrieve the current state of the platform in order to initialise and seed local data models and representations.
 
 - First, the client should send a `getcompany` request. The system will respond with the company name and company ID for your user. See the [Example of a GetCompany Request](#example-of-a-getcompany-request) section for the exact format of the request and response.
 - Then, a current list of users, queues, or calls can be queried from the platform. See the [Example of a Get Request](#example-of-a-getcompany-request) section for more details on the get requests.
@@ -798,7 +798,7 @@ Using our patched version of [XMPPHP](https://github.com/Iperity/xmpphp){:target
 
 #### JavaScript
 
-[Strophe](http://strophe.im/){:target="_blank"} provides a good basis for BOSH connections from JavaScript, suitable to be included in web applications. The [Strophe pubsub module](http://ggozad.com/strophe.plugins/docs/strophe.pubsub.html){:target="_blank"} is useful to receive real-time events.
+[Strophe](http://strophe.im/){:target="_blank"} provides a good basis for BOSH connections from JavaScript, suitable to be included in web applications. The [Strophe pubsub module](https://github.com/ggozad/strophe.plugins){:target="_blank"} is useful to receive real-time events.
 
 ### Appendix A: Example of an XMPP session
 
