@@ -10,7 +10,7 @@ Last updated: {{ site.time | date: '%B %d, %Y' }}
 
 ## Online management and logging in
 
-You can find {{site.compass.reseller.prodname}} at [www.{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/).
+You can find {{site.compass.reseller.prodname}} at [www.{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/){:target="_blank"}.
 
 You need to enter your username and password and press 'Log on' to enter the site.
 
@@ -178,7 +178,7 @@ Warning: in organisations with many users (hundreds or more) the contact list mi
 
 ## Online Management and Login
 
-You can find {{site.compass.reseller.prodname}} at [{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/).
+You can find {{site.compass.reseller.prodname}} at [{{site.compass.reseller.domain}}](https://www.{{site.compass.reseller.domain}}/){:target="_blank"}.
 
 You need to enter your username and password and press Login to enter the site.
 
@@ -627,51 +627,97 @@ Incoming calls will be forwarded to the given number in the field below the forw
 
 From the Manage menu you can choose the Phones menu option to get an overview of phones in the company.
 
-When adding a phone, you should always use auto provisioning as described below.
+### Adding a certified phone
 
-### Setting up Auto provisioning
+{{site.compass.reseller.prodname}} is equipped with auto configuration for certified phones. Auto configuration takes care of configuring certified phones so that no manual set up is required.
 
-{{site.compass.reseller.prodname}} is equipped with auto configuration of several brands and types of phones. Auto configuration takes care of configuring phones so a phone doesn't need to be set up manually to work with {{site.compass.reseller.prodname}}.
-
-Auto configuration is fully supported for these brands:
+Selected models of these brands have been certified to work with {{site.compass.reseller.prodname}}:
 
 * Snom
 * Yealink
 
-SIP phones that are not supported can be added to the platform, when configured as one of these types:
+See [Adding an unsupported phone](#adding-an-unsupported-phone) for phones that are not certified. 
+
+To add a certified phone for auto configuration, go to Manage > Phones and click the Add phone button. You're able to set several basic properties:
+
+* **Phone name**: give the phone a recognisable name
+* **Phone model**: select the specific model/type of the certified phone you wish to add
+* **MAC address**: enter the MAC address, usually found on a sticker on the bottom of the phone
+* **Expansion pads** (only when applicable): enter the amount of connected expansion pads
+* **VLAN ID** (only when applicable): enter the ID of the VLAN the phone should use to connect. Consult your network administrator for details. Valid VLAN ID values are between 1 and 4094. If unsure, leave this empty. Usually a VLAN ID is not needed.
+* **Encryption** (only when applicable): Enable or disable encrypted SIPS and SRTP
+  * **Optional** means a certified phone will always be auto configured to use unencrypted SIP over UDP and unencrypted RTP.
+  * **Mandatory** means a certified phone will always be auto configured with SIPS and SRTP to force both the signaling and the audio to be encrypted.
+
+Click Save to add the phone to the company. You will see the added phone in the overview of configured phones. You can edit the phone by clicking on the Edit button (pencil icon) to the right of the phone details in the overview.
+
+Reset the phone settings to defaults as documented by the phone vendor to activate auto configuration. Auto configuration by {{site.compass.reseller.prodname}} takes place on the first boot after the reset to defaults. **Note**: the time window to reset and reboot the phone expires every week on Wednesday at 03:00 CET/CEST in the night. To open a new time window, go to the phone status page and click the Activate button for Provisioning by manufacturer.
+
+### Adding an unsupported phone
+
+Phones that have not been certified to work with {{site.compass.reseller.prodname}} can be added as one of these types:
+
 * Generic SIP Phone, for physical phones with a MAC address
 * Generic SIP DECT phone for wireless phones, and
 * Generic SIP Softphone for software clients and mobile clients
 
-After clicking the Add phone button, you are able to enter a phone name, a phone type, and its MAC address. The MAC address can usually be found on a sticker on the bottom of the phone. If the specific phone you are adding is not in the list of supported phones, select Generic SIP Phone, or Generic SIP DECT.
+Go to Manage > Phones and click the Add phone button. You're able to set several basic properties:
 
-Depending on the chosen phone type, additional form fields may appear that allow for phone specific configuration, such as installing an expansion pad.
-Optionally, a VLAN ID may be provided. This is the code of the VLAN the phone should use to connect. Valid values are between 1 and 4094. Ask your network administrator for details. If unsure, leave this empty. Usually a VLAN ID is not needed. To deconfigure a VLAN setting, enter the number 0. The next time the phone collects its configuration, it won't be in a VLAN anymore.
+* **Phone name**: give the phone a recognisable name
+* **Phone model**: select the specific model/type of the unsupported phone you wish to add
+* **MAC address** (only when applicable): enter the MAC address, usually found on a sticker on the bottom of the phone
+* **Encryption** (only when applicable): Select optional or mandatory SIPS and SRTP
+  * **Optional** means a phone may register using unencrypted SIP over UDP and then use unencrypted RTP. It _may_ also connect using SIPS (SIP over TLS) and is then _required to use SRTP_ to force both the signaling and the audio to be encrypted.
+  * **Mandatory** means a phone is _required_ to use both SIPS and SRTP to force both the signaling and the audio to be encrypted.
 
-After entering all of the details, click Save to add the phone to the company.
+Click Save to add the phone to the company. You will see the added phone in the overview of configured phones. You can edit the phone by clicking on the Edit button (pencil icon) to the right of the phone details in the overview.
 
-You will see the added phone in the overview of configured phones. You can edit the phone by clicking on the Edit button (pencil icon) to the right of the phone details in the overview.
+The phone can now be configured manually to register with {{site.compass.reseller.prodname}}.
 
-### Settings
+### Phone status
+
+To view the properties and details of an individual phone, click on the phone name in the Phones overview. You will see the phone's details, a Reboot button to remotely restart the phone, and a View provisioning button. The details in this overview are usually not required for normal operation.
+
+### Phone settings
 
 To change the settings of a particular phone, click on the phone's name in the overview to see all of the phone details. Above the table with details, there are several options: Settings and Edit function keys.
 
 #### General phone settings
 
-Click Settings to see several configuration options for that specific phone.
+On the phone's status page, click Settings to see several configuration options for that specific phone.
 
 You are able to edit the sensitivity of the earpiece, headset microphone, and phone speaker. Maximum sensitivity is 100%, and 0% means no sound at all.
 
 It's also possible to enable call waiting and call waiting indication. If you enable call waiting, you will be able to answer a second incoming call while already on the phone in another call. The second call will be indicated to you as configured. You can choose if you wish to answer the second call or not. If call waiting is not enabled, a second call will not be routed to your phone so you will not be disturbed.
 
-Add custom settings enables an administrator to configure custom phone settings by entering provisioning data which is merged into our default provisioning. These settings can be configured for an individual phone, or per phone type, which applies to all phones of the specified type within the company.
-Custom settings will override {{site.compass.reseller.prodname}} settings and incorrect input could potentially break the phone's functionality.
+##### Custom settings
 
-Options for custom settings are, for example, change a label or display text, remap a key, or set a speed dial to be able to have a designated log in button.
-Enter a parameter and value in the fields, click Save when done to push the altered configuration to the selected phone.
+Custom settings enable an administrator to configure custom phone settings by entering provisioning data which is merged into {{site.compass.reseller.prodname}} default provisioning. Custom settings can be configured for an individual phone, or for a phone type, which applies to all phones of the specified type within the company.
+
+Be aware: custom settings will override {{site.compass.reseller.prodname}} settings and incorrect input could potentially break the phone's functionality. This is advanced functionality and should only be set by an experienced administrator.
+
+Examples for custom settings are changing a label or display text, remapping a key, or setting a speed dial to be a designated log in button.
+
+##### Adding and removing custom settings
+
+Click Add custom setting to reveal two fields: one for the setting name and another one for the value of that setting. Enter a setting name and value in the fields, click Save when done to push the altered configuration to the selected phone. Setting names and possible values can be found in the provisioning manual of the corresponding phone type or vendor.
+
+Click Add custom setting again to add more fields for custom settings. A custom setting can be removed by pressing the *x* in front of the Setting name field.
+
+##### Checking provisioning
+
 To view a phone's provisioning configuration, click View provisioning on the phone's Status page. If any customised settings have been applied, these will be visible at the bottom of the document.
 
-Be aware that this is advanced functionality and should only be set by an experienced administrator.
+##### Unsetting values
+
+In some cases it may be necessary to unset a value that is set by (default or custom) provisioning. The method to do this differs per phone vendor. These are the methods for the vendors of supported phones:
+
+* Snom
+  * Set Setting name to the name of the setting you want to unset.
+  * Set the value to " " (a space, without the quotes).
+* Yealink
+  * Set Setting name to the name of the setting you want to unset.
+  * Set the value to `%NULL%`.
 
 #### Edit function keys
 
@@ -690,22 +736,25 @@ You can configure a function for every key. There are different types of functio
 
 Configuring function keys can be done for one phone individually, or for all phones of a particular type at the same time. To configure all phones of a particular type, choose Edit function keys directly from the Phones overview page. Choose the phone type you wish to configure. Set up configuration as you would do for an individual phone from there.
 
-### Phone status
+### Editing phones
 
-To view the properties and details of an individual phone, click on the phone name in the Phones overview. You will see the phone's details, a Reboot button to remotely restart the phone, and a View provisioning button. The details in this overview are usually not required for normal operation.
-
-#### Editing phones
-
-To edit a phone, click the Edit button (pencil icon) right to the phone details in the overview, or click the Edit button on the Phone status page.
+To edit a phone, click the Edit button (pencil icon) in the overview, or click the Edit button on the Phone status page.
 
 You will see the following:
 * **Phone name**: adjust the name here if needed
 * **Phone model**: make corrections here if the wrong model was entered earlier
-* **MAC Address**: make corrections here if the wrong MAC was entered earlier
-* **Expansion pads**: adjust the amount of connected expansion pads
-* **Codec profile**: a codec profile is already defined for the company. If you require a different codec profile for this specific phone, you can configure this here. For example, if a user is working from home on a low bandwidth internet connection. Our advice is to leave this set to default.
-* **Firmware version**: configure which version of the firmware you would like this phone to have. {{site.compass.reseller.prodname}} will attempt to upgrade this phone to the selected firmware.
-* **VLAN ID**: This is the code of the VLAN the phone should use to connect. If unsure, leave this empty. Usually a VLAN ID is not needed.
+* **MAC address**: make corrections here if the wrong MAC was entered earlier
+* **Expansion pads** (only when applicable): adjust the amount of connected expansion pads
+* **Codec profile** (only when applicable): a codec profile is already defined for the company. If you require a different codec profile for this specific phone, you can configure this here. For example, if a user is working from home on a low bandwidth internet connection. Our advice is to leave this set to default.
+* **Firmware version** (only when applicable): configure which version of the firmware you would like this phone to have. {{site.compass.reseller.prodname}} will attempt to upgrade this phone to the selected firmware.
+* **VLAN ID** (only when applicable): enter the ID of the VLAN the phone should use to connect. Consult your network administrator for details. Valid VLAN ID values are between 1 and 4094. If unsure, leave this empty. Usually a VLAN ID is not needed. To deconfigure a VLAN setting, enter the number 0. The next time the phone collects its configuration, it won't be in a VLAN anymore.
+* **Encryption** (only when applicable):
+  * **On certified phones**:
+    * **Optional** means a certified phone will always be auto configured to use unencrypted SIP over UDP and unencrypted RTP.
+    * **Mandatory** means a certified phone will always be auto configured with SIPS and SRTP to force both the signaling and the audio to be encrypted.
+  * **On unsupported phones**:
+    * **Optional** means a phone may register using unencrypted SIP over UDP and then use unencrypted RTP. It _may_ also connect using SIPS (SIP over TLS) and is then _required to use SRTP_ to force both the signaling and the audio to be encrypted.
+    * **Mandatory** means a phone is _required_ to use both SIPS and SRTP to force both the signaling and the audio to be encrypted.
 
 ## Dial plan
 
@@ -817,7 +866,7 @@ This category of dial plan elements contains End call, Busy, Prefix and DTMF inp
 **Prefix**: if a call encounters this element, a configurable text will show in the display of the phone receiving the call together with the calling number. This can help to identify through which number a caller is calling. To set a prefix, drag the element in the dial plan and click on it to configure the text.
 
 **DTMF input**: this element reads DTMF (digit) input from the caller. Use a fixed-length input if the amount of digits is fixed, ie. a 4-digit PIN code.
-If variable-length is selected, the caller ends the input using the pound sign (#). Pressing the star (*) resets the input. DTMF input from the caller can be read by using the [{{site.compass.reseller.prodname}} XMPP API](developers-manual.html#{{ site.compass.reseller.prodname | append: " XMPP API" | slugify }}).
+If variable-length is selected, the caller ends the input using the pound sign (#). Pressing the star (*) resets the input. DTMF input from the caller can be read by using the [{{site.compass.reseller.prodname}} XMPP API](developers-manual.html#{{ site.compass.reseller.prodname | append: " XMPP API" | slugify }}){:target="_blank"}.
 
 *You are advised to use the selected voice prompt to instruct the caller on the usage of this element; for example, mention that input can be ended with the pound sign for variable-length inputs.*
 
@@ -866,8 +915,8 @@ Developers can request the same information using our CDR and Events API documen
 There are 5 types of reports available for download:
 
 * Company CDR: contains a record for every call that enters or leaves a company. A user calling the external number of the company that user is part of, means two records: one call leaving the company, and one entering it.
-* Queue CDR: contains a record for every call that is received by a user. A call between two users in the same company means two records.
-* User CDR: contains a record for every call that enters a queue, also if the queue call isn't answered.
+* Queue CDR: contains a record for every call that enters a queue, also if the queue call isn't answered.
+* User CDR: contains a record for every call that is received by a user. A call between two users in the same company means two records.
 * Call Events: contains step by step events for all calls in the company, to track exactly how a call was handled by the platform.
 * User Events: contains user actions, such as logging in and out on a phone or queue, and pausing and resuming receiving queue calls.
 
@@ -974,12 +1023,15 @@ The columns in the response are:
 * `timestamp`: time at which an event occurred. Formatted in a human-readable format based on ISO8601 and adjusted to work with MS Excel.
 * `company_id`: a numeric, unique identification of a company.
 * `company_name`: name of the company.
-* `event_type`: the type of event. Can be either `pause`, `unpause`, `login`, `logoff`, `remove` or `queuePickup`.
+* `event_type`: the type of event. Values differ depending on the value of `target_type`.
+  * If `target_type` is `phone`, this can be either `login` or `logoff`.
+  * If `target_type` is `queue`, it can be either `pause`, `unpause` (agent paused or unpaused queue), `login` (agent logged in on queue), `remove` (agent logged out of queue) or `queuePickup` (agent performed queue pickup).
+* `event_data`: only filled when `event_type` is `queuePickup`. Contains the call ID of the picked up call.
 * `user_id`: a numeric, unique identification of a user.
 * `user_name`: the login name of a user.
 * `user_fullname`: the full name of a user.
-* `identity_id`: a numeric, unique identification of the identity of a user.
-* `identity_name`: the name of the identity of a user.
+* `identity_id`: only filled when `event_type` is `pause`, `unpause`, `login` or `remove`. A numeric, unique identification of the identity of a user (the agent triggering the event).
+* `identity_name`: the name of the identity referenced by `identity_id`.
 * `target_type`: the type of element the event applies to. Can be either `queue` or `phone`.
 * `target_id`: the unique identification of the element which the event applies to. For example: if `target_type` is a queue, `target_id` contains the ID of the queue.
 * `target_name`: the name of the element which the event applies to. For example: if `target_type` is a queue, this will contain the full name of the queue.

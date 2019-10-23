@@ -1026,5 +1026,5 @@ Receive:
 The XML schemas are available for download in `xsd` format.
 Every XML response from the server notifies the user of the schema that it can be verified against, by specifying the correct type-name in the `xsi:type` attribute of the element. Requests to the server may include an `xsi:type` attribute to indicate the correct schema to the server, but this is not required. However, if the `xsi:type` attribute is included, it must be correct.
 
- - [XSD data types](https://www.{{site.compass.reseller.domain}}/docs/xsd/data.xsd)
- - [XSD for notifications](https://www.{{site.compass.reseller.domain}}/docs/xsd/notifications.xsd)
+ - [XSD data types](https://www.{{site.compass.reseller.domain}}/docs/xsd/data.xsd){:target="_blank"}
+ - [XSD for notifications](https://www.{{site.compass.reseller.domain}}/docs/xsd/notifications.xsd){:target="_blank"}
