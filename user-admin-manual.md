@@ -27,13 +27,38 @@ Here you can adjust your password and email address.
 Here you can find which phone you are currently logged on to and see which extensions and external numbers are associated with your account. If you have write permissions to the company, you are also able to change the phone you are logged on to.
 
 The voicemail section will tell you if you have any messages waiting in your voicemail boxes.
+To listen to voicemail messages, see [Listening to voicemail](#listening-to-voicemail).
 
-You are able to reach the voicemail box by phone by doing either:
+### Status
+
+You can set your status to the following values:
+ - Available - receiving all calls
+ - Busy - receiving only direct calls (blocked for queue calls)
+ - Away - not receiving any calls
+ 
+When you're an agent for a queue that has wrap-up time configured, your status is automatically set to 'busy' after completing a queue call, and reverted back to 'available' when wrap-up time ends.
+
+### Call forwarding
+
+Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer call forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
+
+### Dial plan switches
+
+This list contains up to 10 dial plan switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the dial plan switch.
+
+### Queues
+
+Here you can find the queues to which you have been added, e.g. the type of phone calls you can expect (for example sales or support).
+
+## Listening to voicemail
+
+You are able to reach the voicemail box by phone in the following ways:
 * Call 1233 with a logged on user and enter the PIN code when prompted
 * Call the phone number for which the voicemail box is set, press \* during the welcome message and enter the PIN code when prompted
 
 The structure of the voicemail menu is as follows:
-* Main menu - You have X new and Y old messages. If there are any messages, they are played. If not, the settings menu is played.
+* Main menu - "You have X new and Y old messages."
+  If there are any messages, they are played. If not, the settings menu is played.
 * During playback of a message you have the following choices:
   * 2 Pause
   * 4 Rewind message 5 seconds
@@ -53,18 +78,6 @@ The structure of the voicemail menu is as follows:
   * 2 Record welcome message
   * 5 Change PIN code
   * \* Main menu
-
-### Call forwarding
-
-Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer call forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
-
-### Dial plan switches
-
-This list contains up to 10 dial plan switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the dial plan switch.
-
-### Queues
-
-Here you can find the queues to which you have been added, e.g. the type of phone calls you can expect (for example sales or support).
 
 ## Service codes
 
@@ -103,7 +116,9 @@ Log in to the queue with short code 2 with priority 1. Your personal forwards **
 \*48\*4\*0\*2
 Log in to the queue with short code 4 with priority 2. Your personal call forwards will **not** be followed.
 
-### \*49: Queue pause
+### \*49: Queue pause (deprecated)
+
+<span style="color:red">**NOTE: \*49 is a deprecated feature and will be removed from {{site.compass.reseller.prodname}} in a future release.**</span> **Use \*50 for global queue pause. The paused state set by \*49 may not work correctly while using certain {{site.compass.reseller.prodname}} apps, for example, those that use a newer {{site.compass.reseller.prodname}} REST API version.**
 
 If you temporarily don’t want to receive any calls from a queue, it is possible to ’pause’ that particular queue. You will remain a member, but no new calls will be offered to your phone. It is possible to pause multiple queues at the same time.
 
@@ -121,12 +136,19 @@ When you dial the same service code again, you will be unpaused in this queue. I
 \*49
 Unpause all queues.
 
+### \*50: Global queue pause
+
+Using \*50 the calling user is switched between states 'receive all calls' and 'receive only direct calls'.
+The latter is also called 'paused' state, in which a user will not be offered calls from a queue.
+
+This setting switches the user's paused state for *all* queues.
+
 ### \*55: Set dial plan switch
 
-In order to set or check the status of a dial plan switch you can dial a service code starting with \*55. This code needs to be followed by \* and the number of the dial plan switch, then another \* and the setting of the switch. The number of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
+In order to set or check the setting of a dial plan switch you can dial a service code starting with \*55. This code needs to be followed by \* and the shortcode of the dial plan switch, then another \* and the setting of the switch. The shortcode of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
 Here are a few examples in order to provide some clarification:
 
-\*55\*9 When dialling dial plan switch 9, a prompt will identify the current setting of switch 9. This setting is a number.
+\*55\*9 When dialling this service code, a prompt will identify the current setting of the switch with shortcode 9. This setting is a number.
 
 \*55\*9\*(number between 0 and 9) Change the setting of the dial plan switch to the entered number. Choose 0 for setting 10. Your administrator can configure the dial plan for each individual setting.
 
@@ -441,6 +463,8 @@ Make sure the queue is followed by a next dial plan element, otherwise the queue
 * **Round hold time (seconds)**: The amount in seconds the estimated waiting time is rounded off. For example, if the waiting time should be rounded off to minutes, enter 60.
 * **Shortcode**: Code for the queue which can be used to log in and out of the queue on a phone by dialling \*48*, followed by the code entered here. This code has to be a value greater than 0 and can contain a maximum of 5 numbers.
 When finished setting up the queue click 'Save'.
+* **Wrap-up time**: The number of seconds after completing a queue call, in which the agent will not receive new queue calls. For more details, see the [Wrap-up time](#wrap-up-time) section.
+* **Ignore user status**: When enabled, allows calls from this queue to be offered to agents that are in wrap-up time. For more details, see the [Ignore user status](#ignore-user-status) section.
 
 By clicking on the name of the queue in the overview the queue page loads. Here the queue's settings are displayed and users can be logged in and out of a queue as agents. The right list displays available users in the company not logged in to the queue, the left list displays agents in the queue.
 
@@ -449,6 +473,38 @@ To add a user to the queue click the add button (plus icon) in the right column,
 Priority and whether call forwards are followed can be set for agents. When agents are logged in to a queue by default priority is set to 1 and follow call forwards is disabled.
 
 Click 'Save' to save any changes.
+
+#### Wrap-up time
+
+Note: For wrap-up to work, the agent handling the call needs to have the **wrap-up** feature enabled. For more information about user features, see [Additional features](#additional-features).
+
+{{site.compass.reseller.prodname}} supports *wrap-up time*. When an agent completes a queue call, some time is allocated to handle (wrap-up)
+the completed call and prepare for the next call. No new queue calls are offered to the agent during this time. The wrap-up time for a queue can be configured in the queue settings.
+
+Wrap-up time is started when the agent 'completes' the queue call. The call is considered completed if:
+* one of the parties hangs up.
+* the call is transferred away from the agent.
+
+Wrap-up time can be stopped automatically (time-based) or manually:
+* If the wrap-up duration is set to a positive number of seconds, the platform will automatically stop wrap-up time after that duration.
+* If the duration is set to -1, wrap-up time is automatically started after a queue call, but the user has to stop it manually. This can 
+  be done by [calling \*50](#50-global-queue-pause), or by using the API.
+
+Wrap-up interacts with *user status* (see [My Settings](#status)):
+* If the user's status is "receive all calls" (available), wrap-up will automatically change the status to "receive only direct calls" (busy).
+  The agent will still be able to receive direct calls from colleagues.
+  Queue calls will not be offered, unless a queue has **Ignore user status** set to enabled. For more details, see the [Ignore user status](#ignore-user-status) section.
+* After wrap-up time, the user's status is reverted to "receive all calls".
+
+Wrap-up time is not started if:
+* an agent has call forwarding configured (see [Call forwarding](#call-forwarding)).
+* an agent already has a custom status when the call is completed.
+
+#### Ignore user status
+
+A queue can be configured with the option **ignore user status**: a queue of this type will always offer calls to agents,
+*independent* of the agent's user status (and therefore, even during wrap-up time).
+This can be used for queues with very important calls.
 
 ### Conference Box
 
@@ -570,6 +626,9 @@ Users can be edited to enable additional features. These features incur monthly 
 The following features are currently available:
 
 * **Call control API**: Enable the REST API calls that allow external applications to perform call control. Refer to the REST schema to see the exact calls that become available when enabling this feature.
+* **Listen in API**: Enable the REST API calls that allow external applications to perform listen in. This enables the `/user/<id>/listenIn` REST API call. Refer to the REST schema for more details.
+* **Wrap-up**: Enable wrap-up time after a queue call for this user. The wrap-up time needs to be configured on the queue and will only be applied to users with this feature enabled.
+* **Queue pickup API**: Enable the REST API call that allows a user to pick up a queue call, even if the user is not an agent in the queue. This enables the `/user/<id>/pickupQueueCall` REST API call.
 
 ### User rights
 
@@ -1026,15 +1085,20 @@ The columns in the response are:
 * `event_type`: the type of event. Values differ depending on the value of `target_type`.
   * If `target_type` is `phone`, this can be either `login` or `logoff`.
   * If `target_type` is `queue`, it can be either `pause`, `unpause` (agent paused or unpaused queue), `login` (agent logged in on queue), `remove` (agent logged out of queue) or `queuePickup` (agent performed queue pickup).
-* `event_data`: only filled when `event_type` is `queuePickup`. Contains the call ID of the picked up call.
+  * If `target_type` is empty, can be `status` or `listenIn`
+* `event_data`: Filled when `event_type` is `queuePickup` or `listenIn`. Contains the call ID of the picked up call or call that's listened in on respectively.
 * `user_id`: a numeric, unique identification of a user.
 * `user_name`: the login name of a user.
 * `user_fullname`: the full name of a user.
 * `identity_id`: only filled when `event_type` is `pause`, `unpause`, `login` or `remove`. A numeric, unique identification of the identity of a user (the agent triggering the event).
 * `identity_name`: the name of the identity referenced by `identity_id`.
-* `target_type`: the type of element the event applies to. Can be either `queue` or `phone`.
+* `target_type`: the type of element the event applies to. Can be either `queue` or `phone`, or empty.
 * `target_id`: the unique identification of the element which the event applies to. For example: if `target_type` is a queue, `target_id` contains the ID of the queue.
 * `target_name`: the name of the element which the event applies to. For example: if `target_type` is a queue, this will contain the full name of the queue.
+* `receive_calls`: for events of type `status`, the user's setting whether to receive calls (`all`, `none` or `only_direct`).
+* `display_status`: for events of type `status`, the display status string of the user.
+* `call_id`: for events of type `status` that pertain to the start of wrap-up time, the identifier of the call that caused the wrap-up time. 
+* `end_time`: for events of type `status` that pertain to the start of wrap-up time, the timestamp at which wrap-up time ends. If the wrap-up duration is indefinite, this field is left empty.
 
 ### Downloading reports from the web interface
 

@@ -39,8 +39,11 @@ The following standards are used:
 Besides this document itself, a complete API reference documenting all available endpoints and their input and output schemas can be found online at [https://rest.{{site.compass.reseller.domain}}/schema](https://rest.{{site.compass.reseller.domain}}/schema){:target="_blank"}. After providing your {{site.compass.reseller.prodname}} credentials, all API calls can be executed interactively.
 An OpenAPI [specification](https://github.com/OAI/OpenAPI-Specification){:target="_blank"} is available for each version of the API:
 
-- Version 2: https://rest.{{site.compass.reseller.domain}}/schema/schemas/v2.json
-- Version 1: https://rest.{{site.compass.reseller.domain}}/schema/schemas/v1.json (deprecated)
+- Version 3: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v3.json>
+- Version 2: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v2.json> (deprecated))
+- Version 1: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v1.json> (deprecated)
+
+Please update your software to use v3. See the [API migration guide](api-migration-guide.html) for instructions.
 
 #### Philosophy
 
@@ -65,6 +68,8 @@ All objects retrieved from the REST interface are versioned. Versioning is denot
 `Accept: application/vnd.iperity.compass.v1+json; q=0.9, application/vnd.iperity.compass.v2+json; q=1.0`
 would indicate to the server that either version is acceptable. This allows you to publish a client that’s compatible with two different API versions; for example, the current API version and the upcoming version that’s soon to be released.
 To determine the exact version that was negotiated, look at the `Content-type` header that’s returned by the server.
+
+For instructions on how to update your software to use the latest API version, refer to the [API migration guide](api-migration-guide.html).
 
 #### Error handling
 
