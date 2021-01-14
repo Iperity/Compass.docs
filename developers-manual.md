@@ -621,7 +621,7 @@ The procedure to connect the user to one of the agents, is mostly analogous with
 ### Requests and Responses
 
 RPC-style requests can be performed over the XMPP connection as well. Both requests and responses are wrapped IQ stanzas, as defined in XMPP-Core. Requests have to be sent to the `phone` subdomain of the main XMPP host: `phone.uc.{{site.compass.reseller.domain}}`.
-This section contains examples of the most-frequently used requests and their responses. For a rigorous description of all valid requests and responses, see the XML schemas in the [XSD section]{(#appendix-b-schemas). Schemas for pubsub subscription requests can be found in the relevant XMPP standards, and are not repeated here.
+This section contains examples of the most-frequently used requests and their responses. For a rigorous description of all valid requests and responses, see the XML schemas in the [XSD section](#appendix-b-schemas). Schemas for pubsub subscription requests can be found in the relevant XMPP standards, and are not repeated here.
 
 #### Example of a GetCompany Request
 
@@ -1032,4 +1032,5 @@ The XML schemas are available for download in `xsd` format.
 Every XML response from the server notifies the user of the schema that it can be verified against, by specifying the correct type-name in the `xsi:type` attribute of the element. Requests to the server may include an `xsi:type` attribute to indicate the correct schema to the server, but this is not required. However, if the `xsi:type` attribute is included, it must be correct.
 
  - [XSD data types](https://www.{{site.compass.reseller.domain}}/docs/xsd/data.xsd){:target="_blank"}
+ - [XSD request types](https://www.{{site.compass.reseller.domain}}/docs/xsd/requests.xsd){:target="_blank"}
  - [XSD for notifications](https://www.{{site.compass.reseller.domain}}/docs/xsd/notifications.xsd){:target="_blank"}
