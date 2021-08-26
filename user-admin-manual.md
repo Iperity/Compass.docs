@@ -32,11 +32,13 @@ To listen to voicemail messages, see [Listening to voicemail](#listening-to-voic
 ### Status
 
 You can set your status to the following values:
- - Available - receiving all calls
- - Busy - receiving only direct calls (blocked for queue calls)
- - Away - not receiving any calls
- 
-When you're an agent for a queue that has wrap-up time configured, your status is automatically set to 'busy' after completing a queue call, and reverted back to 'available' when wrap-up time ends.
+ - Available
+ - No queue calls - blocks queue calls but allows direct calls.
+ - No calls - blocks all calls, both direct as well as from a queue.
+
+A queue can be configured to ignore user status. This allows for calls from high priority queues to still get through even if your status is 'No queue calls' or 'No calls'.
+
+When you're an agent for a queue that has wrap-up time configured, your status is automatically set to 'No queue calls' after completing a queue call, and reverted back to 'Available' when wrap-up time ends.
 
 ### Call forwarding
 
@@ -491,10 +493,10 @@ Wrap-up time can be stopped automatically (time-based) or manually:
   be done by [calling \*50](#50-global-queue-pause), or by using the API.
 
 Wrap-up interacts with *user status* (see [My Settings](#status)):
-* If the user's status is "receive all calls" (available), wrap-up will automatically change the status to "receive only direct calls" (busy).
+* If the user's status is 'Available', wrap-up will automatically change the status to 'No queue calls'.
   The agent will still be able to receive direct calls from colleagues.
   Queue calls will not be offered, unless a queue has **Ignore user status** set to enabled. For more details, see the [Ignore user status](#ignore-user-status) section.
-* After wrap-up time, the user's status is reverted to "receive all calls".
+* After wrap-up time, the user's status is reverted to 'Available'.
 
 Wrap-up time is not started if:
 * an agent has call forwarding configured (see [Call forwarding](#call-forwarding)).
