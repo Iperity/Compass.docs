@@ -36,7 +36,7 @@ You can set your status to the following values:
  - No queue calls - blocks queue calls but allows direct calls.
  - No calls - blocks all calls, both direct as well as from a queue.
 
-A queue can be configured to ignore user status. This allows for calls from high priority queues to still get through even if your status is 'No queue calls' or 'No calls'.
+A queue can be configured to ignore user status. This allows for calls from high priority queues to still get through even if your status is 'No queue calls' or 'No calls'. For more details on this setting, see the [Ignore user status](#ignore-user-status) section.
 
 When you're an agent for a queue that has wrap-up time configured, your status is automatically set to 'No queue calls' after completing a queue call, and reverted back to 'Available' when wrap-up time ends.
 
@@ -118,32 +118,9 @@ Log in to the queue with short code 2 with priority 1. Your personal forwards **
 \*48\*4\*0\*2
 Log in to the queue with short code 4 with priority 2. Your personal call forwards will **not** be followed.
 
-### \*49: Queue pause (deprecated)
+### \*49: Global queue pause
 
-<span style="color:red">**NOTE: \*49 is a deprecated feature and will be removed from {{site.compass.reseller.prodname}} in a future release.**</span> **Use \*50 for global queue pause. The paused state set by \*49 may not work correctly while using certain {{site.compass.reseller.prodname}} apps, for example, those that use a newer {{site.compass.reseller.prodname}} REST API version.**
-
-If you temporarily don’t want to receive any calls from a queue, it is possible to ’pause’ that particular queue. You will remain a member, but no new calls will be offered to your phone. It is possible to pause multiple queues at the same time.
-
-Pause is activated by dialling a service code, starting with \*49, followed by another \* and a queue short code. This sequence will mark you as paused in the corresponding queue. If you are already paused in the corresponding queue, this sequence will unpause you for the corresponding queue. If you dial \*49 without a short code, you will be unpaused in all queues you are a member of.
-
-\*49\*8
-Pause queue with short code 8. Your identity will no longer receive new calls from the queue.
-
-\*49\*27
-Pause queue with short code 27.
-
-\*49\*27
-When you dial the same service code again, you will be unpaused in this queue. If there are any callers waiting you will receive new calls within seconds.
-
-\*49
-Unpause all queues.
-
-### \*50: Global queue pause
-
-Using \*50 the calling user is switched between states 'receive all calls' and 'receive only direct calls'.
-The latter is also called 'paused' state, in which a user will not be offered calls from a queue.
-
-This setting switches the user's paused state for *all* queues.
+Using \*49 the calling user can manually toggle their user status between 'Available' and 'No queue calls'. User status 'No queue calls' means the user can only receive direct calls until their user status is set to 'Available' again. For more details on the effects of user status, see the [User status](#status) section.
 
 ### \*55: Set dial plan switch
 
@@ -439,13 +416,13 @@ You can add a new queue by clicking 'Add queue'.
   * **Choose phone with least calls by this queue**; the phone to have received the least calls will ring first.
   * **Choose phone arbitrarily**; phones will ring randomly.
 * **Possible to connect to a queue**:
-  * **If at least one agent is logged in**: calls will be placed in the queue even if all agents are paused.
-  * **If at least one agent is not paused**: calls will only be placed in the queue when at least one agent is available (unpaused).
-  * **Always**: a call will always be placed in the queue, even when no agents are logged in.
+  * **If at least one agent is logged in**: new calls are placed in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. If no queue agents are logged in on their phone, new calls are not placed in the queue and follow any remaining steps in the dial plan.
+  * **If at least one agent is not paused**: new calls are placed in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', new calls are not placed in the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
+  * **Always**: new calls are always placed in the queue, regardless of whether queue agents are logged in on their phone, or their user status.
 * **Stay connected to queue**:
-  * **While at least one agent is logged in**: calls in this queue will stay in the queue while agents are available, even if they are all paused.
-  * **At least one agent is not paused**: calls will stay in the queue while one agent is available. When all agents are paused, the call will leave the queue.
-  * **Always**: will cause all calls to stay in the queue even if there are no agents logged in anymore.
+  * **While at least one agent is logged in**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. When the last queue agent logs out of their phone, waiting calls are removed from the queue and follow any remaining steps in the dial plan.
+  * **At least one agent is not paused**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', waiting calls are removed from the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
+  * **Always**: already waiting calls remain in the queue, regardless of whether queue agents log out of their phone, or change their user status.
 * **Callers can escape from this queue**: When enabled, a caller can press 1 to exit the queue. {{site.compass.reseller.prodname}} will ignore the maximum waiting time and will immediately continue to the next step in the dial plan. For example: set a periodic announcement with a prompt stating that many agents are occupied and a caller can choose to leave a voicemail message by pressing 1, so they can be called back at another time.
 Make sure the queue is followed by a next dial plan element, otherwise the queue will disconnect after pressing 1.
 * **Call waiting if agent is already in a call:** Enabled by default. This setting is only applicable if an agent has enabled call waiting on their phone. When disabled, this setting overrules the phone's call waiting setting and a second queue call will not be offered if an agent is already in a call.
@@ -466,7 +443,7 @@ Make sure the queue is followed by a next dial plan element, otherwise the queue
 * **Shortcode**: Code for the queue which can be used to log in and out of the queue on a phone by dialling \*48*, followed by the code entered here. This code has to be a value greater than 0 and can contain a maximum of 5 numbers.
 When finished setting up the queue click 'Save'.
 * **Wrap-up time**: The number of seconds after completing a queue call, in which the agent will not receive new queue calls. For more details, see the [Wrap-up time](#wrap-up-time) section.
-* **Ignore user status**: When enabled, allows calls from this queue to be offered to agents that are in wrap-up time. For more details, see the [Ignore user status](#ignore-user-status) section.
+* **Ignore user status**: When enabled, allows calls from this queue to be offered to agents with a user status of 'No queue calls' (for example, during wrap-up time) or 'No calls'. For more details, see the [Ignore user status](#ignore-user-status) section. This setting also has effect on the queue settings 'Possible to connect to a queue' and 'Stay connected to queue'. See the documentation for these queue options for more details.
 
 By clicking on the name of the queue in the overview the queue page loads. Here the queue's settings are displayed and users can be logged in and out of a queue as agents. The right list displays available users in the company not logged in to the queue, the left list displays agents in the queue.
 
@@ -490,7 +467,7 @@ Wrap-up time is started when the agent 'completes' the queue call. The call is c
 Wrap-up time can be stopped automatically (time-based) or manually:
 * If the wrap-up duration is set to a positive number of seconds, the platform will automatically stop wrap-up time after that duration.
 * If the duration is set to -1, wrap-up time is automatically started after a queue call, but the user has to stop it manually. This can 
-  be done by [calling \*50](#50-global-queue-pause), or by using the API.
+  be done by [calling \*49](#49-global-queue-pause), by clicking the `End wrap-up` button in Bridge, or by using the API.
 
 Wrap-up interacts with *user status* (see [My Settings](#status)):
 * If the user's status is 'Available', wrap-up will automatically change the status to 'No queue calls'.
@@ -1086,13 +1063,13 @@ The columns in the response are:
 * `company_name`: name of the company.
 * `event_type`: the type of event. Values differ depending on the value of `target_type`.
   * If `target_type` is `phone`, this can be either `login` or `logoff`.
-  * If `target_type` is `queue`, it can be either `pause`, `unpause` (agent paused or unpaused queue), `login` (agent logged in on queue), `remove` (agent logged out of queue) or `queuePickup` (agent performed queue pickup).
+  * If `target_type` is `queue`, it can be either `login` (agent logged in on queue), `remove` (agent logged out of queue) or `queuePickup` (agent performed queue pickup).
   * If `target_type` is empty, can be `status` or `listenIn`
 * `event_data`: Filled when `event_type` is `queuePickup` or `listenIn`. Contains the call ID of the picked up call or call that's listened in on respectively.
 * `user_id`: a numeric, unique identification of a user.
 * `user_name`: the login name of a user.
 * `user_fullname`: the full name of a user.
-* `identity_id`: only filled when `event_type` is `pause`, `unpause`, `login` or `remove`. A numeric, unique identification of the identity of a user (the agent triggering the event).
+* `identity_id`: only filled when `event_type` is `login` or `remove`. A numeric, unique identification of the identity of a user (the agent triggering the event).
 * `identity_name`: the name of the identity referenced by `identity_id`.
 * `target_type`: the type of element the event applies to. Can be either `queue` or `phone`, or empty.
 * `target_id`: the unique identification of the element which the event applies to. For example: if `target_type` is a queue, `target_id` contains the ID of the queue.

@@ -3,6 +3,11 @@ layout: doc-with-toc
 title: Developers manual
 permalink: /developers-manual.html
 description: Developers manual for using the REST and XMPP APIs.
+# api_versions is an array of comma seperated integers with currently active API versions.
+# Put the most preferred API version first in the array.
+# It will be used to make sure the code examples have the latest version, and the
+# list of available API versions (section: API Reference) will be generated from this.
+api_versions: [ 3 ]
 ---
 
 # Developers Manual
@@ -20,7 +25,6 @@ The REST API is suited for configuration of the platform, reading values that ch
 
 The XMPP API can be used to query the state of the platform, and to be notified of events happening on the platform in real time, and complements the REST API.
 
-
 ## {{site.compass.reseller.prodname}} REST Interface
 
 ### Introduction
@@ -37,13 +41,14 @@ The following standards are used:
 #### API Reference
 
 Besides this document itself, a complete API reference documenting all available endpoints and their input and output schemas can be found online at [https://rest.{{site.compass.reseller.domain}}/schema](https://rest.{{site.compass.reseller.domain}}/schema){:target="_blank"}. After providing your {{site.compass.reseller.prodname}} credentials, all API calls can be executed interactively.
-An OpenAPI [specification](https://github.com/OAI/OpenAPI-Specification){:target="_blank"} is available for each version of the API:
 
-- Version 3: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v3.json>
-- Version 2: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v2.json> (deprecated))
-- Version 1: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v1.json> (deprecated)
+An [OpenAPI specification](https://github.com/OAI/OpenAPI-Specification){:target="_blank"} is available for each current version of the API:
 
-Please update your software to use v3. See the [API migration guide](api-migration-guide.html) for instructions.
+{% for api_version in page.api_versions -%}
+- Version {{api_version}}: <https://rest.{{site.compass.reseller.domain}}/schema/schemas/v{{api_version}}.json>
+{% endfor %}
+
+We highly recommend updating your software to work with version {{page.api_versions[0]}} of the API as it offers the most features and is the easiest to use. Older versions of the API will be deprecated and removed periodically.
 
 #### Philosophy
 
@@ -60,16 +65,20 @@ All REST requests are available via HTTPS only. When REST requests are done via 
 
 #### Authentication
 
-Before every REST request, the user as whom the request is being made must be authenticated via HTTP [basic authentication](https://tools.ietf.org/html/rfc1945#section-11.1){:target="_blank"} over HTTPS. If no authentication is included, a `401 Not authorized` response is given. This response also includes a `WWW-Authenticate` header indicating that the client should authenticate itself.
+Before every REST request, the user as whom the request is being made must be authenticated via HTTP [basic authentication](https://datatracker.ietf.org/doc/html/rfc1945#section-11.1){:target="_blank"} over HTTPS. If no authentication is included, a `401 Not authorized` response is given. This response also includes a `WWW-Authenticate` header indicating that the client should authenticate itself.
 
 #### Versioning
 
-All objects retrieved from the REST interface are versioned. Versioning is denoted via the `Accept` (client to server) and `Content-type` (both ways) HTTP headers. The `Accept` header is expected to have the following format: `application/vnd.iperity.compass.<api-version-number>+json` A client **must** include a valid `Accept` header for every API request. This will ensure that your application keeps working properly when a new API version is released. Within an API version, there will never be any breaking changes. However, non- breaking changes like adding new endpoints or adding extra properties to the output will not necessarily result in a new API version. It’s valid to include multiple MIME types in your accept header, as specified in [https://tools.ietf.org/html/rfc7231#section-5.3.2](https://tools.ietf.org/html/rfc7231#section-5.3.2){:target="_blank"}. For example, requesting
-`Accept: application/vnd.iperity.compass.v1+json; q=0.9, application/vnd.iperity.compass.v2+json; q=1.0`
-would indicate to the server that either version is acceptable. This allows you to publish a client that’s compatible with two different API versions; for example, the current API version and the upcoming version that’s soon to be released.
+All objects retrieved from the REST interface are versioned. Versioning is denoted via the `Accept` (client to server) and `Content-type` (both ways) HTTP headers. The `Accept` header is expected to have the following format: `application/vnd.iperity.compass.<api-version-number>+json`.
+
+A client **must** include a valid `Accept` header for every API request. This will ensure that your application keeps working properly when a new API version is released.
+
+It’s valid to include multiple MIME types in your accept header, as specified in [RFC 7231, section 5.3.2](https://datatracker.ietf.org/doc/html/rfc7231#section-5.3.2){:target="_blank"}. For example, requesting
+`Accept: application/vnd.iperity.compass.v{{page.api_versions[0] | minus: 1}}+json; q=0.9, application/vnd.iperity.compass.v{{page.api_versions[0]}}+json; q=1.0`
+would indicate to the server that either version is acceptable, but version {{page.api_versions[0]}} is preferred. This allows you to publish a client that’s compatible with two different API versions; for example, the current API version and the upcoming version that’s soon to be released.
 To determine the exact version that was negotiated, look at the `Content-type` header that’s returned by the server.
 
-For instructions on how to update your software to use the latest API version, refer to the [API migration guide](api-migration-guide.html).
+Within an API version, there will never be any breaking changes. However, non-breaking changes like adding new endpoints or adding extra properties to the output will not necessarily result in a new API version.
 
 #### Error handling
 
@@ -198,7 +207,7 @@ If a request is performed over HTTP, a redirect is returned to a secure URL.
 ```
 GET /user/100 HTTP/1.1
 Host: rest.{{site.compass.reseller.domain}}
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 
 >> HTTP/1.1 308 Permanent Redirect
 >> Location: https://rest.{{site.compass.reseller.domain}}/user/
@@ -208,7 +217,7 @@ Accept: application/vnd.iperity.compass.v2+json
 
 ```
 GET /user HTTP/1.1
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 >> HTTP/1.1 303 See Other
@@ -219,11 +228,11 @@ Host: rest.{{site.compass.reseller.domain}}
 
 ```
 GET /user/100 HTTP/1.1
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 >> HTTP/1.1 200 OK
->> Content-Type: application/vnd.iperity.compass.v2+json
+>> Content-Type: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 
 >> {
 >>  "username" => "testuser",
@@ -236,11 +245,11 @@ Host: rest.{{site.compass.reseller.domain}}
 
 ```
 GET /company/100/queues HTTP/1.1
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 >> HTTP/1.1 200 OK
->> Content-Type: application/vnd.iperity.compass.v2+json
+>> Content-Type: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 
 >> [
 >>  {
@@ -262,7 +271,7 @@ Host: rest.{{site.compass.reseller.domain}}
 
 ```
 PATCH /dpSwitch/100 HTTP/1.1
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 {
@@ -270,7 +279,7 @@ Host: rest.{{site.compass.reseller.domain}}
 }
 
 >> HTTP/1.1 200 OK
->> Content-Type: application/vnd.iperity.compass.v2+json
+>> Content-Type: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 >>
 >> {
 >>  "currentSetting" : 2,
@@ -284,7 +293,7 @@ Host: rest.{{site.compass.reseller.domain}}
 
 ```
 POST /user/100/loginQueue HTTP/1.1
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 {
@@ -302,7 +311,7 @@ Host: rest.{{site.compass.reseller.domain}}
 ```
 POST /user/100 HTTP/1.1
 X-HTTP-Method-Override: DELETE
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 >> HTTP/1.1 200 OK
@@ -314,32 +323,15 @@ Host: rest.{{site.compass.reseller.domain}}
 ```
 GET /user HTTP/1.1
 X-No-Redirect: true
-Accept: application/vnd.iperity.compass.v2+json
+Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 Host: rest.{{site.compass.reseller.domain}}
 
 >> HTTP/1.1 200 OK
->> Content-Type: application/vnd.iperity.compass.v2+json
+>> Content-Type: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
 >> {
 >>  ...
 >> }
 ```
-
-### Changelog
-
-As of this moment, the API serves two versions: v1 and v2.
-
-#### V2
-
-V2 is the current version. In this version, there are a few major changes compared to V1:
-
-- The "full" endpoints like `/company/:id/fullUsers` are renamed to simply `/company/:id/users`, etc. If you want to retrieve only the basic information for a resource or entity, you can still do so using `/company/:id/resourcesFiltered` or `/company/:id/entitiesFiltered`.
-- The `/did` endpoints, already deprecated in V1, are now completely removed. Please switch to `/externalNumber` instead.
-
-Also, a large amount of new endpoints were made available. Creating and deleting several resource types via the API is now possible. Please refer to the API Reference for an overview.
-
-#### V1
-
-In V1, `did` is deprecated in favor of `externalNumber`. If your application uses any of the `/did/:id/` endpoints, `/company/:id/outboundClis`, `/company/:id/fullOutboundClis`, or the `outboundCli` property on an `identity`; please start migrating to their `externalNumber` variants to remain compatible with future versions.
 
 ### Demo code (PHP)
 
@@ -355,7 +347,7 @@ url_setopt($ch, CURLOPT_USERPWD, "$username:$password");
 url_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 url_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 url_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Accept: application/vnd.iperity.compass.v2+json'
+    'Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json'
 ));
 
 $res = curl_exec($ch);
@@ -388,7 +380,7 @@ $.ajax({
         headers: {
             "Authorization": "Basic " + btoa(username + ":" + password),
             "X-No-Redirect": true,
-            "Accept": "application/vnd.iperity.compass.v2+json"
+            "Accept": "application/vnd.iperity.compass.v{{page.api_versions[0]}}+json"
         },
     })
     .done(function(data) {
@@ -419,7 +411,7 @@ Many XMPP software libraries are available to minimize the implementation time n
 
 The [XMPP-Core specification](https://xmpp.org/rfcs/rfc3920.html){:target="_blank"} provides details on how to establish a connection via XMPP. The hostname to connect to is `uc.{{site.compass.reseller.domain}}`. The standard XMPP port 5222 is used. Clients are required to use stream negotiation to encrypt the stream using [TLS](https://www.ietf.org/rfc/rfc2246.txt){:target="_blank"}.
 
-For web clients, {{site.compass.reseller.prodname}} supports [WebSockets](https://tools.ietf.org/html/rfc6455){:target="_blank"} and the legacy [BOSH protocol](https://xmpp.org/extensions/xep-0124.html){:target="_blank"}.
+For web clients, {{site.compass.reseller.prodname}} supports [WebSockets](https://datatracker.ietf.org/doc/html/rfc1945#section-11.1){:target="_blank"} and the legacy [BOSH protocol](https://xmpp.org/extensions/xep-0124.html){:target="_blank"}.
 
 For WebSockets, connect to `wss://bosh.{{site.compass.reseller.domain}}/ws`. For BOSH, use `https://bosh.{{site.compass.reseller.domain}}/http-bind`.
 
