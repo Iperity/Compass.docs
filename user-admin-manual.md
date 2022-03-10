@@ -40,13 +40,13 @@ A queue can be configured to ignore user status. This allows for calls from high
 
 When you're an agent for a queue that has wrap-up time configured, your status is automatically set to 'No queue calls' after completing a queue call, and reverted back to 'Available' when wrap-up time ends.
 
-### Call forwarding
+### User forwards
 
-Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer call forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
+Here you can manage forwarding of incoming calls, e.g. forward immediately (Always), when you are busy (Busy), could not answer the phone (No Answer) or are not reachable (Unavailable). By setting the ring time you decide how long the phone rings before following the No Answer forward. Checking the CLI transparent box will display the original caller ID at the destination, instead of the caller ID of the forwarding party.
 
-### Dial plan switches
+### Call flow switches
 
-This list contains up to 10 dial plan switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the dial plan switch.
+This list contains up to 10 call flow switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the call flow switch.
 
 ### Queues
 
@@ -99,9 +99,9 @@ If you were already logged on to the phone and dial \*1, you will be logged off 
 
 You can dial a service code, starting with \*48, to log in or log out from a queue within your company. The service code has to be followed by another asterisk and the queue short code. This queue short code can be configured by your administrator.
 
-By default, when you log in to a queue, your identity will be configured in a way that your personal call forwards will **not** be followed in case you receive a call from the queue. Next to that, your identity will have priority 1 in the queue. This implies that your phone will ring immediately, according to the queue strategy, when an outside caller enters the specified queue.
+By default, when you log in to a queue, your identity will be configured in a way that your user forwards will **not** be followed in case you receive a call from the queue. Next to that, your identity will have priority 1 in the queue. This implies that your phone will ring immediately, according to the queue strategy, when an outside caller enters the specified queue.
 
-It is possible to change these default settings by appending more parameters when dialling the service code. All parameters are separated by asterisks (\*). As mentioned, the first setting is mandatory and is the queue short code. The second setting is optional and is used to indicate whether your personal call forwards should be followed. A one (1) tells to follow them, a zero (0) lets the platform know you do not want your forwards to be followed.
+It is possible to change these default settings by appending more parameters when dialling the service code. All parameters are separated by asterisks (\*). As mentioned, the first setting is mandatory and is the queue short code. The second setting is optional and is used to indicate whether your user forwards should be followed. A one (1) tells to follow them, a zero (0) lets the platform know you do not want your forwards to be followed.
 
 With the last setting, you can control with which priority you will enter the queue. This priority can be either 1, 2 or 3. The priority indicates the amount of use of the queue that should be reached, before incoming calls will be attempted to be delivered on your phone.
 
@@ -110,26 +110,26 @@ The optional settings can only be configured when you are currently logged out f
 Below are a few examples to clarify the use of \*48:
 
 \*48\*8
-If you are logged on to the queue with short code 8, you will be logged off. If you are not currently a member of the queue, you will be added to it with priority 1 and have your personal call forwards disabled if you receive calls from this queue.
+If you are logged on to the queue with short code 8, you will be logged off. If you are not currently a member of the queue, you will be added to it with priority 1 and have your user forwards disabled if you receive calls from this queue.
 
 \*48\*2\*1
-Log in to the queue with short code 2 with priority 1. Your personal forwards **will** be followed when you receive calls from that queue.
+Log in to the queue with short code 2 with priority 1. Your user forwards **will** be followed when you receive calls from that queue.
 
 \*48\*4\*0\*2
-Log in to the queue with short code 4 with priority 2. Your personal call forwards will **not** be followed.
+Log in to the queue with short code 4 with priority 2. Your user forwards will **not** be followed.
 
 ### \*49: Global queue pause
 
 Using \*49 the calling user can manually toggle their user status between 'Available' and 'No queue calls'. User status 'No queue calls' means the user can only receive direct calls until their user status is set to 'Available' again. For more details on the effects of user status, see the [User status](#status) section.
 
-### \*55: Set dial plan switch
+### \*55: Set call flow switch
 
-In order to set or check the setting of a dial plan switch you can dial a service code starting with \*55. This code needs to be followed by \* and the shortcode of the dial plan switch, then another \* and the setting of the switch. The shortcode of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
+In order to set or check the setting of a call flow switch you can dial a service code starting with \*55. This code needs to be followed by \* and the shortcode of the call flow switch, then another \* and the setting of the switch. The shortcode of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
 Here are a few examples in order to provide some clarification:
 
 \*55\*9 When dialling this service code, a prompt will identify the current setting of the switch with shortcode 9. This setting is a number.
 
-\*55\*9\*(number between 0 and 9) Change the setting of the dial plan switch to the entered number. Choose 0 for setting 10. Your administrator can configure the dial plan for each individual setting.
+\*55\*9\*(number between 0 and 9) Change the setting of the call flow switch to the entered number. Choose 0 for setting 10. Your administrator can configure the dial plan for each individual setting.
 
 ### \*8: Pickup of a call coming in on another phone
 
@@ -253,9 +253,8 @@ Please enter a very simple dial plan at first, for example, call > user. Try to 
 
 1. Go to 'Manage', 'Dial plan', 'External numbers'.
 2. Choose the number you want to add a dial plan to.
-3. Enter the desired elements, for example, time-based routing, users, voice prompts or an IVR menu. You can find these elements (if they have been added before) at the right below 'Elements'.
+3. Drag-and-drop desired elements from the left-hand menu to the canvas. For example, IVR menus, users or voice prompts.
 4. Save the dial plan by clicking on the Save button, in the top right corner of the dial plan canvas.
-5. The dial plan has been added.
 
 ## Organisations and Resellers
 
@@ -449,7 +448,7 @@ By clicking on the name of the queue in the overview the queue page loads. Here 
 
 To add a user to the queue click the add button (plus icon) in the right column, to remove an agent from the queue click the remove button (minus icon) in the left column.
 
-Priority and whether call forwards are followed can be set for agents. When agents are logged in to a queue by default priority is set to 1 and follow call forwards is disabled.
+Priority and whether user forwards are followed can be set for agents. When agents are logged in to a queue by default priority is set to 1 and follow user forwards is disabled.
 
 Click 'Save' to save any changes.
 
@@ -476,7 +475,7 @@ Wrap-up interacts with *user status* (see [My Settings](#status)):
 * After wrap-up time, the user's status is reverted to 'Available'.
 
 Wrap-up time is not started if:
-* an agent has call forwarding configured (see [Call forwarding](#call-forwarding)).
+* an agent has user forwards configured (see [User forwards](#user-forwards)).
 * an agent already has a custom status when the call is completed.
 
 #### Ignore user status
@@ -503,31 +502,32 @@ The voicemail box settings can be edited by clicking the Edit button (pencil ico
 
 To permanently delete a voicemail box, in the Voicemail box overview click the remove button (bin icon) behind the box to be removed. You will be requested to confirm the deletion.
 
-### Call Forwarding
+### Dial plan forwards
 
-When you add a call forward, this call forward will be available in the dial plan's Call forwarding submenu. For further details see the [Dial plan](#dial-plan) section.
+When you add a dial plan forward, this forward will be available in the dial plan, under the Dial plan forwards element. For further details see the [Dial plan](#dial-plan) section.
 
-Add a new call forward by clicking 'Add new call forwarding destination'.
+Add a new dial plan forward by clicking 'Add new dial plan forward'.
 
-* **Call forward towards number**: Enter the phone number to which the call forward has to be directed. This can be an internal or external extension or for example a mobile phone number.
-* **Description**: Enter a descriptive name for the call forward.
+* **Forward towards number**: Enter the phone number to which the you want to direct the forward. This can be an internal or external extension or for example a mobile phone number.
+* **Description**: Enter a descriptive name.
 * **Ring time (seconds)**: lets you choose how long the call will be offered to the destination of the forward, before reverting back to the dial plan. Setting ring time at 0 will not revert to the dial plan.
 * **Extension**: When filled out, a new extension will be created. Its function is to forward to the destination number, therefore it could be used as a quick dial. For example, if the destination for the forward is someone's mobile number, only the extension has to be dialled in order to reach the person on mobile. The extension can also be used to add a more extensive dial plan.
-* **Call forward CLI transparent**: When enabled the original caller ID will be sent to the destination, instead of the caller ID of the forwarding party.
+* **CLI transparent**: When enabled the original caller ID will be sent to the destination, instead of the caller ID of the forwarding party.
 * **Confirm received call**: When enabled the destination will be prompted to confirm answering the forwarded call by pressing a key on the phone. When denied, the call will return to the dial plan. If no other option is set, it will be terminated.
 
 When finished setting these options, click Save.
 
-To edit a call forward, click the Edit button (pencil icon) in the overview. To discard changes click Cancel, to save changes click Save.
+To edit a dial plan forward, click the Edit button (pencil icon) in the overview. To discard changes click Cancel, to save changes click Save.
 
-If you wish to permanently delete a call forward, click the remove button (bin icon) in the overview. You will be requested to confirm the deletion.
+If you wish to permanently delete a forward, click the remove button (bin icon) in the overview. You will be requested to confirm the deletion.
 
-### Dial plan switch
+### Call flow switch
+<a name="callflowswitch"></a>
 
-When dial plan switches have been added to a dial plan in your company, this overview gives you a list of all the switches, their short code and current setting. For further details on how to add a dial plan switch, see the [Branches](#branches) section.
+When call flow switches have been added to a dial plan in your company, this overview gives you a list of all the switches, their short code and current setting. For further details on how to add a call flow switch, see the [Call flow switches](#callflowswitch) section.
 
-To change the setting of a dial plan switch via the web interface, click the Edit button (pencil icon) to the right of the switch's name. On the Edit Dial plan switch page is an overview of all the available settings, with the current setting selected. Select the desired setting and click Save. In the Dial plan switch overview, the current setting is visible.
-Deleting a dial plan switch can be done by going to the extension's dial plan in which the switch is located. Click the X icon in the dial plan switch block to remove it from the dial plan and click Save.
+To change the setting of a call flow switch via the web interface, click the Edit button (pencil icon) to the right of the switch's name. On the Edit call flow switch page is an overview of all the available settings, with the current setting selected. Select the desired setting and click Save. In the call flow switch overview, the current setting is visible.
+Deleting a call flow switch can be done by going to the extension's dial plan in which the switch is located. Click the X icon in the call flow switch block to remove it from the dial plan and click Save.
 
 ## Users and Groups
 
@@ -594,7 +594,7 @@ One user can have multiple identities which can be added by clicking on Add iden
 
 To log the selected user on and off on a phone using the web interface, go to Log in and log off phone. On the Log on to phone page, an overview of all the phones in the company is visible. The selected user can be logged in on a phone by clicking the phone name. The user's name will appear behind the phone name when the user is logged in. Logging out is done by clicking the phone name again. The user's name disappears when logged out.
 
-Settings can be used to view and change the user's personal and phone information, set identity call forwarding and view voicemail and queues information. For more information, see the [Settings](#settings) section.
+Settings can be used to view and change the user's personal and phone information, set user forwards and view voicemail and queues information. For more information, see the [Settings](#settings) section.
 
 If you wish to permanently delete a user click the remove button (bin icon) behind the user's name in the Users overview. You will be requested to confirm deletion.
 
@@ -649,17 +649,17 @@ If you wish to permanently delete an identity, click the remove button (bin icon
 The user's settings page provides an overview of the user's personal-, phone-, voicemail and queue information. To get to this page, select the user in the Users overview and click Settings.
 
 The user's email address, password, phone and identity forwards can be modified.
-In the Call forwarding section identity forwards can be set. The following options are available:
+In the User forwards section identity forwards can be set. The following options are available:
 
 * **Always**: Incoming calls are always immediately forwarded to the given number.
 * **Busy**: Incoming calls will only be forwarded when the user is already in a call.
 * **No answer**: Incoming calls will be forwarded when the calls are not answered. A call will be considered not answered after the set ring time has passed.
 * **Unavailable**: Incoming calls will be forwarded when the phone the user is registered to is unavailable. This is the case when either a user is not logged in on the phone, or the user has enabled the Do Not Disturb setting on the phone.
 
-Incoming calls will be forwarded to the given number in the field below the forward option. This can be an internal extension, an external number for example a mobile phone number, or voicemail (1233). Additional options for identity call forwards are:
+Incoming calls will be forwarded to the given number in the field below the forward option. This can be an internal extension, an external number for example a mobile phone number, or voicemail (1233). Additional options for user forwards are:
 
 * **Ring time**: The set time (seconds) determines how long the call will be offered until a call is considered not answered.
-* **Call forward CLI transparent**: When this option is enabled, the original caller ID will be sent to the destination, instead of the caller ID of the forwarding party.
+* **CLI transparent**: When this option is enabled, the original caller ID will be sent to the destination, instead of the caller ID of the forwarding party.
 
 ## Phones
 
@@ -800,92 +800,75 @@ As an administrator, you can edit everything related to dial plans. The procedur
 
 ### Editor
 
-In the dial plan editor, you can create and alter dial plans by dragging and dropping dial plan elements. The available elements are on the right hand side of the editor. There is a search field to filter elements. At the moment, these are the types of elements that are available:
+In the dial plan editor, you can create and alter dial plans by dragging and dropping dial plan elements. The available elements are on the left-hand side of the editor. At the top of the sidebar, there is a unique search field for all elements.
 
-* Branches
-  * Time based routing
-  * IVR menu
-  * Dial plan switch
-  * Number recognition
-* Call forwarding
-* Conferences
-* Miscellaneous
-  * End call
-  * Busy
-  * Prefix
-  * DTMF input
-* Persons
-* Prompts
-* Queues
-* Voicemails
+At the top left corner of the dial plan canvas is a phone number or extension to which the dial plan belongs. This is also the entry point of the call. Drag the elements from the left-hand sidebar to the empty slots below the number to create a dial plan.
 
-In the top left corner is a grey block: Call. This is the point where the call enters the dial plan. You can now click and drag a dial plan element from the right panel to drop it on the first free slot: First action.
+An already placed element can be removed by hovering over the element in the dial plan and clicking the X in the top right corner of the element block. Clicking on the element block will open the element details, if there are any.
 
-An already placed element can be removed by hovering over the element in the dial plan and clicking the X in the top right corner of the element.
-
-Please note that you should always manually save any changes you've made to the dial plan. Changes to the dial plan are **not** saved automatically. To save your changes click the Save button in the top right corner of the dial plan editor.
+**Changes to the dial plan are not saved automatically.** Make sure you click "Save" in the top right corner before exiting the dial plan.
 
 ### Dial plan elements
 
-The list of elements with which a dial plan can be made consists of the created resources, such as queues, prompts, persons, and special elements such as time based routers and dial plan switches. In the next chapters we'll describe how these elements can be used.
+The list of elements with which a dial plan can be made consists of the created resources, such as queues, prompts, users, and special elements such as IVR menus and call flow switches. In the next chapters we'll describe how these elements can be used.
 
-#### Branches
+#### Call flow switch
 
-This category of dial plan elements contains Dial plan switch, IVR menu, Number recognition and Time based routing.
+If a call should be routed differently depending on a condition set by a user, you can use a call flow switch. This for example allows a user to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
 
-**Dial plan switch**
+To add a call flow switch, drag the element to a free slot. Follow the instructions to add all the relevant information.
 
-  If a call should be routed differently depending on a condition set by a user, you can use a Dial plan switch. This for example allows a user to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
+Shortcode is used to identify the switch when changing or reading the active setting of the switch.
 
-  To add a Dial plan switch, drag the element to a free slot. A pop-up for the settings will appear. Then enter a name, a Dial plan switch shortcode (used to identify the switch when changing or reading the branch), and the amount of switch branches you require. When ready, save the settings. The branches should now appear in the dial plan.
+Optionally, you can give each branch a name by clicking on the branch element and filling in the input field.
 
-  Optionally, you can give each branch a name by clicking on the branch element and filling in the form field.
+Now simply drag dial plan elements to the branches to configure what happens if a call is routed through that branch.
 
-  Now simply drag dial plan elements to the branches to configure what happens if a call is routed through that branch.
+If you have created a call flow switch, there are two ways to read and change the current setting. First by going to the call flow switches page in {{site.compass.reseller.prodname}}, see the [Call flow switch](#call-flow-switch) section. Second, by using a service code on your phone, as described in the [Set call flow switch](#55-set-call-flow-switch) section. Additionally, in the dial plan of the extension containing the switch, the current setting of the switch is indicated by a check mark in the block of the selected setting.
 
-  If you have created a Dial plan switch, there are two ways to read and change the current setting. First by going to the Dial plan switches page in {{site.compass.reseller.prodname}}, see the [Dial plan switch](#dial-plan-switch) section. Second, by using a service code on your phone, as described in the [Set dial plan Switch](#55-set-dial-plan-switch) section. Additionally, in the dial plan of the extension containing the switch the current setting of the switch is indicated by a check mark in the block of the selected setting.
+#### IVR menu
 
-**IVR menu**
+If a call should be routed differently based on a choice made by the caller, you can use an Interactive Voice Response (IVR) Menu. This allows a caller to press, for example, `1` for support, and `2` for sales.
 
-  If a call should be routed differently based on a choice made by the caller, you can use an Interactive Voice Response (IVR) Menu. This for example allows a caller to press '1' for support, and '2' for sales.
+To add an IVR menu, drag the element to a free slot. Follow the instructions to add all the relevant information.
 
-  To add an IVR menu, drag the element to a free slot. A pop-up for the settings will appear. Then enter a name, add a voice prompt in which the available options are explained, select how many times callers should hear the menu repeated and how long a caller has to respond with a choice. Check the dial pad keys the menu should respond to and save the settings. The dial plan should now display a branch for every selected key.
+Number of repeats refers to the number of time callers are going to hear the menu repeated. The Timeout determines how much time a caller has to respond with a choice.
 
-  Now simply drag dial plan elements to the branches to configure what happens if a caller presses that key.
+Now simply drag dial plan elements to the branches to configure what happens if a caller presses that key.
 
-**Number recognition**
+#### Number-based routing
 
-  If a call should be routed differently depending on the number it's calling from, you can use Number recognition. This for example allows for different dial plan branches for different countries of origin, or routing a customer directly to a specific support agent. Anonymous calls can be routed separately.
+If a call should be routed differently depending on the caller's number, you can use number-based routing. This for example allows for different dial plan branches for different countries of origin, or routing a customer directly to a specific support agent. Anonymous calls can be routed separately.
 
-  To add Number recognition, drag the element to a free slot. A pop-up for the branches will appear. Click the plus icon to add branches. Determine how many different branches the routing should have, and give them a name such as 'Region A', 'Region B', 'Region C', and 'Customer X'. When ready, save the settings. The branches should now appear in the dial plan.
+To add number-based routing, drag the element to a free slot. Follow the instructions to add all the relevant information. Determine how many different branches the routing should have, and give them a name such as 'Region A', 'Region B', 'Region C', and 'Customer X'. When ready, save the settings. The branches should now appear in the dial plan.
 
-  Click on the branch element to set which incoming numbers should be recognised. The Number list can take prefixes or complete numbers.
+Click on the branch element to set which incoming numbers should be recognised. The Number list can take prefixes or complete numbers.
 
-  * Input one prefix or number per line in the Number list.
-  * Always use international format, but *without* the plus sign (+), minus sign (-) or spaces.
-  * To match a specific number, enter the complete number including international prefix ("31201234567").
-  * To match a region, enter the international prefix and the area code (example: "3120" to match all calls from Amsterdam).
-  * To match all mobile calls, enter the international prefix and the mobile number prefix ("316").
-  * To match all calls from a country, enter the international prefix number ("31").
+* Input one prefix or number per line in the Number list.
+* Always use international format, but *without* the plus sign (+), minus sign (-) or spaces.
+* To match a specific number, enter the complete number including international prefix ("31201234567").
+* To match a region, enter the international prefix and the area code (example: "3120" to match all calls from Amsterdam).
+* To match all mobile calls, enter the international prefix and the mobile number prefix ("316").
+* To match all calls from a country, enter the international prefix number ("31").
 
-  These things are important to consider:
-  * Anonymous calls by default do not match any branch. If you wish to route anonymous calls, always have one branch with the option Caller ID blocked enabled. All anonymous calls will be routed through that branch.
-  * If more than one branch matches the incoming number, the first match will determine the branch the call is routed through. For example: if the first branch matches on "31612" and the second matches on "316", then incoming calls from number 31612345678 will be routed through the "31612" branch.
-  * If the incoming number doesn't match any manually configured branch, the call will be routed through the Default branch. This branch is always added automatically.
+These things are important to consider:
+* Anonymous calls by default do not match any branch. If you wish to route anonymous calls, always have one branch with the option Caller ID blocked enabled. All anonymous calls will be routed through that branch.
+* If more than one branch matches the incoming number, the first match will determine the branch the call is routed through. For example: if the first branch matches on "31612" and the second matches on "316", then incoming calls from number 31612345678 will be routed through the "31612" branch.
+* If the incoming number doesn't match any manually configured branch, the call will be routed through the Default branch. This branch is always added automatically.
 
-  Do this for every branch, and make sure that every number (including anonymous) you wish to route has a match in one of the branches.
+Do this for every branch, and make sure that every number (including anonymous) you wish to route has a match in one of the branches.
 
-**Time based routing**
+#### Time-based routing
 
-  If a call should be routed differently depending on the time of day, day of the week, or (part of) the month, you can use Time based routing. This for example allows you to play different prompts during the day, such as 'Good morning' and 'Good afternoon'.
+If a call should be routed differently depending on the time of day, day of the week, or (part of) the month, you can use time-based routing. This allows you, for example, to play different prompts during the day, such as 'Good morning' and 'Good afternoon'.
 
-  To add Time based routing, drag the element to a free slot. A pop-up for the branches will appear. Click the plus icon to add branches. Determine how many different branches the routing should have, and give them a name such as 'Morning', 'Afternoon', 'Evening', and 'Night'.  When ready, save the settings. The branches should now appear in the dial plan.
+To add time-based routing element, drag the element to a free slot. Follow the instructions to add all the relevant information. When ready, save the settings. The branches should now appear in the dial plan.
 
-  Click on the branch element to set at which times that branch should be followed. Do this for every branch, and make sure that there are no gaps between the time set for each branch. So 'Morning' is set from 08:00 to 12:00, then 'Afternoon' is set from 12:00 to 18:00, etc.
+Click on the branch element to set at which times that branch should be followed. Do this for every branch, and make sure that there are no gaps between the time set for each branch. So 'Morning' is set from 08:00 to 12:00, then 'Afternoon' is set from 12:00 to 18:00, etc.
 
-#### Call Forwarding
+#### Dial plan forwards
 
-If at some point in the dial plan you would like to forward the call to a different number (internal or external), you can use a forward. If a forward is used in a dial plan for an external number, and you are not forwarding to an internal extension, the external number of the dial plan will be used as the outgoing number for number recognition.
+If at some point in the dial plan you would like to forward the call to a different number (internal or external), you can use a dial plan forward. If a forward is used in a dial plan for an external number, and you are not forwarding to an internal extension, the external number of the dial plan will be used as the outgoing number for number recognition.
 
 #### Conferences
 
@@ -893,24 +876,29 @@ If you would like to have a conference box in your dial plan, drag it to an open
 
 A conference box element will answer incoming calls automatically and ask for a PIN code if required. A conference box is a dial plan end point, meaning elements placed after a conference box will not be executed.
 
-#### Miscellaneous
+#### Call end
 
-This category of dial plan elements contains End call, Busy, Prefix and DTMF input.
+If this element is encountered in the dial plan before a call is answered, the call will end with a "Temporarily not available" status. If the call was answered earlier in the dial plan, and the call continued after that, it will end with a "Normal call clearing" status.
 
-**End call**: if this element is encountered in the dial plan before a call is answered, the call will end with a "Temporarily not available" status. If the call was answered earlier in the dial plan, and the call continued after that, it will end with a "Normal call clearing" status.
+#### Busy signal
 
-**Busy**: a call encountering this element will end with a "Busy" status.
+A call encountering this element will end with a "Busy" status.
 
-**Prefix**: if a call encounters this element, a configurable text will show in the display of the phone receiving the call together with the calling number. This can help to identify through which number a caller is calling. To set a prefix, drag the element in the dial plan and click on it to configure the text.
+#### Label (formerly Prefix)
 
-**DTMF input**: this element reads DTMF (digit) input from the caller. Use a fixed-length input if the amount of digits is fixed, ie. a 4-digit PIN code.
+If a call encounters this element, a configurable text will show in the display of the phone receiving the call together with the calling number. This can help to identify through which number a caller is calling. To set a label, drag the element in the dial plan and click on it to configure the text.
+
+#### DTMF input
+
+This element reads DTMF (digit) input from the caller. Use a fixed-length input if the amount of digits is fixed, ie. a 4-digit PIN code.
+
 If variable-length is selected, the caller ends the input using the pound sign (#). Pressing the star (*) resets the input. DTMF input from the caller can be read by using the [{{site.compass.reseller.prodname}} XMPP API](developers-manual.html#{{ site.compass.reseller.prodname | append: " XMPP API" | slugify }}){:target="_blank"}.
 
 *You are advised to use the selected voice prompt to instruct the caller on the usage of this element; for example, mention that input can be ended with the pound sign for variable-length inputs.*
 
-#### Persons
+#### Users
 
-You can set up a dial plan to call a particular person by dragging one of the person elements to a free slot in the dial plan. The dial plan will call the first identity configured for this person. In addition, identity forwards set for that identity will be followed. If the call is not answered directly or after following forwards, the dial plan will continue to the next configured action.
+You can set up a dial plan to call a particular person by dragging one of the user elements to a free slot in the dial plan. The dial plan will call the first identity configured for this user. In addition, identity forwards set for that identity will be followed. If the call is not answered directly or after following forwards, the dial plan will continue to the next configured action.
 
 #### Prompts
 
