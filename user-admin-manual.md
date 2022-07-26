@@ -742,6 +742,18 @@ Click Add custom setting to reveal two fields: one for the setting name and anot
 
 Click Add custom setting again to add more fields for custom settings. A custom setting can be removed by pressing the *x* in front of the Setting name field.
 
+##### Applying Snom permission flags
+
+It is possible to apply permissions on Snom phone settings in provisioning data. To set a permission flag for a setting, add the corresponding character at the end of the setting key:
+
+* `!` for user changeable
+* `&` for read only
+* `$` for read-write
+
+More information on the effects of permission flags can be found on [the Permission Flags page on the Snom wiki](https://service.snom.com/display/wiki/Permission+Flags).
+
+For example, if you have a setting with key `should_be_readonly` and want to make that setting write-protected, add a `&` at the end so the key becomes `should_be_readonly&`. To verify if the correct permission is applied in provisioning, you can check the provisioning output as described in the next section.
+
 ##### Checking provisioning
 
 To view a phone's provisioning configuration, click View provisioning on the phone's Status page. If any customised settings have been applied, these will be visible at the bottom of the document.
