@@ -186,10 +186,6 @@ For a client to discover references to the authenticated user’s resource URL a
 
 ### Client compatibility
 
-#### HTTP PATCH
-
-Because the HTTP PATCH method is fairly new, there can be issues with client compatibility. For that reason, the API allows the usage of the `X-HTTP-Header-Override` HTTP header. The value of this header overrides the actual HTTP request method that is used. For PATCH or DELETE methods, a normal HTTP POST can be used when providing this header. An example of this override header is provided in the [Using X-Method-Override](#using-x-method-override) section.
-
 #### CORS
 
 The REST API follows the cross-origin resource sharing (CORS) specification of the [W3C](https://www.w3.org/TR/cors/){:target="_blank"}. This means that the API can be used cross-origin on modern browsers. The server sends appropriate CORS headers when a cross-origin request is made.
@@ -301,18 +297,6 @@ Host: rest.{{site.compass.reseller.domain}}
     "priority" : "2",
     "callForward" : false
 }
-
->> HTTP/1.1 200 OK
->> Content-Length: 0
-```
-
-#### Using X-Method-Override
-
-```
-POST /user/100 HTTP/1.1
-X-HTTP-Method-Override: DELETE
-Accept: application/vnd.iperity.compass.v{{page.api_versions[0]}}+json
-Host: rest.{{site.compass.reseller.domain}}
 
 >> HTTP/1.1 200 OK
 >> Content-Length: 0

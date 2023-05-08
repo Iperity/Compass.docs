@@ -724,9 +724,7 @@ To change the settings of a particular phone, click on the phone's name in the o
 
 On the phone's status page, click Settings to see several configuration options for that specific phone.
 
-You are able to edit the sensitivity of the earpiece, headset microphone, and phone speaker. Maximum sensitivity is 100%, and 0% means no sound at all.
-
-It's also possible to enable call waiting and call waiting indication. If you enable call waiting, you will be able to answer a second incoming call while already on the phone in another call. The second call will be indicated to you as configured. You can choose if you wish to answer the second call or not. If call waiting is not enabled, a second call will not be routed to your phone so you will not be disturbed.
+You are able to enable call waiting and call waiting indication. If you enable call waiting, you will be able to answer a second incoming call while already on the phone in another call. You can choose if you wish to answer the second call or not. If call waiting is not enabled, a second call will not be routed to your phone so you will not be disturbed.
 
 ##### Custom settings
 
