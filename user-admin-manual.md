@@ -404,7 +404,7 @@ To delete a category and its files click the delete button (bin icon). You will 
 
 ### Queues
 
-You can add a new queue by clicking 'Add queue'.
+To create a new queue: open a dial plan in Studio and click on `Queues` in the `Dynamic elements` section on the bottom left. Then click `Create queue` and follow the steps.
 
 * **Name Queue**: allows you to enter the name of the new queue. Use a unique name, preferably short and descriptive.
 * **Strategy**: queue strategy determines how the queue calls agents logged in on the queue. The following options are available:
@@ -422,12 +422,11 @@ You can add a new queue by clicking 'Add queue'.
   * **While at least one agent is logged in**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. When the last queue agent logs out of their phone, waiting calls are removed from the queue and follow any remaining steps in the dial plan.
   * **At least one agent is not paused**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', waiting calls are removed from the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
   * **Always**: already waiting calls remain in the queue, regardless of whether queue agents log out of their phone, or change their user status.
-* **Callers can escape from this queue**: When enabled, a caller can press 1 to exit the queue. {{site.compass.reseller.prodname}} will ignore the maximum waiting time and will immediately continue to the next step in the dial plan. For example: set a periodic announcement with a prompt stating that many agents are occupied and a caller can choose to leave a voicemail message by pressing 1, so they can be called back at another time.
-Make sure the queue is followed by a next dial plan element, otherwise the queue will disconnect after pressing 1.
+* **Callers can escape from this queue**: Allows users to exit a queue by pressing a key on their phone dial pad. When enabled, the queue settings page will show a phone dial pad to configure which keys the user can press to exit the queue. Available exit keys are the numbers 0 to 9, * and #. The default action is that a caller will immediately continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken for each individual queue exit, such as informing the caller about the exit they have taken. The selected exit keys will effect all dial plans containing the queue. Customized steps for an exit key are not global but stored and customizable per individual dial plan.
 * **Call waiting if agent is already in a call:** Enabled by default. This setting is only applicable if an agent has enabled call waiting on their phone. When disabled, this setting overrules the phone's call waiting setting and a second queue call will not be offered if an agent is already in a call.
-* **Max. number of people in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. When there are no successive steps in the dial plan, the call will be disconnected.
+* **Max. number of people in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. The default action is that a caller will immediately continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken when the maximum number of people in the queue is reached. These dial plan steps are not global but stored and customizable per individual dial plan.
 * **Elapsed time in queue**: The ring time in seconds a call is offered to available agents in the queue.
-* **Maximum waiting time**: Time in seconds a call can stay in the queue. When passed, the call will continue to the next step in the dial plan.
+* **Maximum waiting time**: Time in seconds a call can stay in the queue. When the maximum waiting time is reached, the caller will exit the queue automatically. The default action is that a caller will continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken when the maximum waiting time is reached. These dial plan steps are not global but stored and customizable per individual dial plan.
 * **Weight**: The weight of this queue compared to other queues. If an agent is logged in to multiple queues, a call to a queue with a higher weight will be offered first. The default is 1 and the maximum is 5 (extreme weight).
 * **Gear up agents after a long waiting time**: When this is set more agents will be gradually engaged depending on priority and availability. At login on a queue priority 1, 2 or 3 can be set for an agent. At first agents with priority 1 will be offered calls. When option 60/180 is set, this will be the case for the first 60 seconds. In the subsequent 180 seconds agents with priority 2 will be engaged, if agents with priority 1 are unavailable. After 240 seconds all agents including priority 3 will be offered calls, until the maximum waiting time has elapsed.
 * **Music on hold**: Choose from files added in the Music on hold menu which music is played for a waiting caller.
@@ -916,12 +915,20 @@ If you would like to play a message to the caller, you can add a prompt to a fre
 
 #### Queues
 
-If the handling of incoming calls should be distributed over a group of users (agents) while the caller waits in line, you can use a queue. This for example allows a sales team to all receive calls to the sales number and have users wait if all sales representatives are busy handling calls. If configured, users will be informed about their position in the waiting line and the expected waiting time.
+If the handling of incoming calls should be distributed over a group of users (agents) while the caller waits in line, you can use a queue. This for example allows a sales team to route all received calls to the sales number and have users wait if all sales representatives are busy handling calls.
 
-A call will only be routed to elements after a queue if:
-* callers were unable to enter the queue due to its settings
-* the caller escapes from the queue (if configured)
+To create a new queue: open a dial plan in Studio and click on `Queues` in the `Dynamic elements` section on the bottom left. Then click `Create queue` and follow the steps.
+
+Configuration options include the possibility to set a maximum waiting time for callers, enable informing the caller of the average waiting time, and determine a phone ring strategy.
+
+It is possible to customize the dial plan steps for situations where:
+* the caller escapes from the queue using a key on the dial pad
+* the maximum number of people in the queue is reached
 * the maximum waiting time is reached
+
+**Note**: while queue settings, including options such as the selected exit keys, are global and apply to every dial plan you add the queue to. The customizable steps for queue exits are _not_ global and can be changed for every dial plan individually. If you want to use the same queue with the same customized exit steps for multiple dial plans, it's best to put the queue in a nested dial plan.
+
+If the call has not ended when all custom steps for that exit have been followed, the dial plan will continue with the steps in the dial plan that are after the queue. If a caller is not able to enter a queue due to other settings, then the call will also be routed to the steps after the queue.
 
 If a call is answered by an agent, the queue will be the end point of the call.
 
@@ -1035,6 +1042,12 @@ The columns in the response are:
 * `callee_type`, `callee_id`, `callee_number`, `callee_desc` and `callee_state`: same as above, but for the receiving side. This will change while the call proceeds through the dial plan. For example, a call is answered by a queue first, then by an agent.
 * `state`: indicates the state of a call. Can be either `conn` (connecting), `ring` (ringing), `answered` or `down` (call ended). It's possible for a call to change state from answered to ringing, for example after an unattended transfer.
 * `end_reason`: indicates the reason the call was ended. Can be either `busy`, `caller` (caller ended the call), `callee` (receiver ended the call) or `replace` (call ended with a (semi) attended transfer).
+* `queue_exit`: indicates the reason a caller exited a queue. Can be:
+  * `max_len` when the maximum amount of callers in the queue is reached
+  * `max_waittime` if maximum wait time in the queue is reached by the caller
+  * `join_empty` if no agents are available to pick up the call due to being paused or logged out when a new caller tries to enter the queue
+  * `leave_when_empty` if a caller is already queued but the queue is configured to purge callers if all agents log out
+  * `key_X` when the caller has pressed a key on the dial pad. `X` refers to a key on the dial pad: 0-9, * or #
 
 Note:
 * Events are not sorted in the response.
