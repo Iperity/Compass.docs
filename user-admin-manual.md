@@ -404,52 +404,67 @@ To delete a category and its files click the delete button (bin icon). You will 
 
 ### Queues
 
-To create a new queue: open a dial plan in Studio and click on `Queues` in the `Dynamic elements` section on the bottom left. Then click `Create queue` and follow the steps.
+New queues can be created in two ways: by clicking the `Create queue` button on the queue overview page, or via the dial plan editor, selecting 'queues' from the left sidebar, and then clicking the `Create queue` button.
 
-* **Name Queue**: allows you to enter the name of the new queue. Use a unique name, preferably short and descriptive.
-* **Strategy**: queue strategy determines how the queue calls agents logged in on the queue. The following options are available:
-  * **Activate all phones simultaneously**; all phones in the queue will ring at the same time.
-  * **Activate all available phones alternatively**; one phone at a time will receive a call.
-  * **Activate all available phones alternatively and recall last phone**; one phone at a time will receive a call, starting with the phone that completed a call last.
-  * **Choose phone least recently called by this queue**; the phone least recently called will receive the call first.
-  * **Choose phone with least calls by this queue**; the phone to have received the least calls will ring first.
-  * **Choose phone arbitrarily**; phones will ring randomly.
-* **Possible to connect to a queue**:
-  * **If at least one agent is logged in**: new calls are placed in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. If no queue agents are logged in on their phone, new calls are not placed in the queue and follow any remaining steps in the dial plan.
-  * **If at least one agent is not paused**: new calls are placed in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', new calls are not placed in the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
+
+Some settings are not accessible during the queue creation process. You can change these other settings after creating the queue by navigating to either the queue overview page and then selecting the queue or the dial plan editor, selecting the queue, and then clicking the `Advanced options` button.
+
+* **Name**: allows you to enter the name of the queue.
+
+* **Shortcode**: code for the queue which can be used to log in and out of the queue on a phone by dialling *48*, followed by the shortcode. This code has to be a value greater than 0 and can contain a maximum of 5 numbers. This setting can only be changed after the creation process.
+
+* **Ringing strategy**: determines how the queue calls agents logged in on the queue. The following options are available:
+  * **Ring all phones simultaneously (default)**; all phones in the queue will ring at the same time.
+  * **Ring all phones alternatively**; one phone at a time will receive a call.
+  * **Ring phone least recently called from this queue**; phone least recently called will receive the call first.
+  * **Ring phone with fewest calls from this queue**; phone to have received the least calls will ring first.
+  * **Ring phone randomly**; phones will ring randomly.
+  
+* **Possible to connect to queue**: This setting can only be changed after the creation process.
+  * **If at least one agent is logged in (default)**: new calls are placed in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. If no queue agents are logged in on their phone, new calls are not placed in the queue and follow any remaining steps in the dial plan.
+  * **If at least one agent is available**: new calls are placed in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', new calls are not placed in the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
   * **Always**: new calls are always placed in the queue, regardless of whether queue agents are logged in on their phone, or their user status.
-* **Stay connected to queue**:
-  * **While at least one agent is logged in**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. When the last queue agent logs out of their phone, waiting calls are removed from the queue and follow any remaining steps in the dial plan.
-  * **At least one agent is not paused**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', waiting calls are removed from the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
+
+* **Stay connected to queue**: This setting can only be changed after the creation process.
+  * **While at least one agent is logged in (default)**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone, no matter what their user status is. When the last queue agent logs out of their phone, waiting calls are removed from the queue and follow any remaining steps in the dial plan.
+  * **If at least one agent is available**: already waiting calls remain in the queue if at least one queue agent is logged in on a phone and has a user status of 'Available'. If the user status of all queue agents is 'No queue calls' or 'No calls', waiting calls are removed from the queue and follow any remaining steps in the dial plan. This behaviour can be overwritten with the 'Ignore user status' queue option.
   * **Always**: already waiting calls remain in the queue, regardless of whether queue agents log out of their phone, or change their user status.
-* **Callers can escape from this queue**: Allows users to exit a queue by pressing a key on their phone dial pad. When enabled, the queue settings page will show a phone dial pad to configure which keys the user can press to exit the queue. Available exit keys are the numbers 0 to 9, * and #. The default action is that a caller will immediately continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken for each individual queue exit, such as informing the caller about the exit they have taken. The selected exit keys will effect all dial plans containing the queue. Customized steps for an exit key are not global but stored and customizable per individual dial plan.
-* **Call waiting if agent is already in a call:** Enabled by default. This setting is only applicable if an agent has enabled call waiting on their phone. When disabled, this setting overrules the phone's call waiting setting and a second queue call will not be offered if an agent is already in a call.
-* **Max. number of people in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. The default action is that a caller will immediately continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken when the maximum number of people in the queue is reached. These dial plan steps are not global but stored and customizable per individual dial plan.
-* **Elapsed time in queue**: The ring time in seconds a call is offered to available agents in the queue.
-* **Maximum waiting time**: Time in seconds a call can stay in the queue. When the maximum waiting time is reached, the caller will exit the queue automatically. The default action is that a caller will continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken when the maximum waiting time is reached. These dial plan steps are not global but stored and customizable per individual dial plan.
-* **Weight**: The weight of this queue compared to other queues. If an agent is logged in to multiple queues, a call to a queue with a higher weight will be offered first. The default is 1 and the maximum is 5 (extreme weight).
-* **Gear up agents after a long waiting time**: When this is set more agents will be gradually engaged depending on priority and availability. At login on a queue priority 1, 2 or 3 can be set for an agent. At first agents with priority 1 will be offered calls. When option 60/180 is set, this will be the case for the first 60 seconds. In the subsequent 180 seconds agents with priority 2 will be engaged, if agents with priority 1 are unavailable. After 240 seconds all agents including priority 3 will be offered calls, until the maximum waiting time has elapsed.
-* **Music on hold**: Choose from files added in the Music on hold menu which music is played for a waiting caller.
-* **Periodic Announcements**: Choose which prompt is repeated during the waiting time in a queue.
-* **Time lapse between announcement**: Sets the interval in seconds between periodic announcements. This setting will yield the Elapsed time in queue setting when not equal.
-* **Interval between announcements of callers waiting and hold time**: Sets an announcement stating the number of waiting callers in the queue. Any value will set the time in seconds between the callers waiting announcement and a hold time announcement when set.
+
+* **Maximum waiting time**: Time in seconds a call can stay in the queue (max. 65535 seconds). When the maximum waiting time is reached, the caller will exit the queue automatically. The default action is that a caller will continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken when the maximum waiting time is reached. These dial plan steps are not global but stored and customizable per individual dial plan.
+
+* **Ring time**: The amount of time a call is offered to available agents in the queue. This setting can only be changed after the creation process.
+
+* **Weight**: the weight of this queue compared to other queues. If an agent is logged in to multiple queues, a call to a queue with a higher weight will be offered first. The default is 1 (Normal) and the maximum is 5 (Extreme). This setting can only be changed after the creation process.
+
+* **Call waiting if agent is already in a call:** this setting is only applicable if an agent has enabled call waiting on their phone. When disabled, this setting overrules the phone’s call waiting setting and a second queue call will not be offered if an agent is already in a call. Enabled by default. This setting can only be changed after the creation process.
+
+* **Ignore agent's status**: When enabled, allows calls from this queue to be offered to agents with a user status of 'No queue calls' (for example, during wrap-up time) or 'No calls'. For more details, see the [Ignore user status](#ignore-user-status) section. This setting also has effect on the queue settings 'Possible to connect to a queue' and 'Stay connected to queue'. See the documentation for these queue options for more details. Disabled by default. This setting can only be changed after the creation process.
+
+* **Enable wrap-up time**: The number of seconds after completing a queue call, in which the agent will not receive new queue calls. For more details, see the [Wrap-up time](#wrap-up-time) section. Disabled by default. This setting can only be changed after the creation process.
+
+* **Gear up agents based on priority**: When this is set more agents will be gradually engaged depending on priority and availability. At login on a queue priority 1, 2 or 3 can be set for an agent. At first agents with priority 1 will be offered calls. When option 60/180 is set, this will be the case for the first 60 seconds. In the subsequent 180 seconds agents with priority 2 will be engaged, if agents with priority 1 are unavailable. After 240 seconds all agents including priority 3 will be offered calls, until the maximum waiting time has elapsed. Disabled by default. This setting can only be changed after the creation process.
+
+* **Limit number of callers in queue**: If the filled in number of waiting callers in a queue is reached, the first new caller will not be placed in the queue. The default action is that a caller will immediately continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken when the maximum number of people in the queue is reached. These dial plan steps are not global but stored and customizable per individual dial plan. Disabled by default. This setting can only be changed after the creation process.
+
+* **Callers can exit**: Allows users to exit a queue by pressing a key on their phone dial pad. When enabled, the queue settings page will show a phone dial pad to configure which keys the user can press to exit the queue. Available exit keys are the numbers 0 to 9, * and #. The default action is that a caller will immediately continue to the next step in the dial plan. If there is no next step in the dial plan the call will end. In the dial plan editor you can customize the steps taken for each individual queue exit, such as informing the caller about the exit they have taken. The selected exit keys will effect all dial plans containing the queue. Customized steps for an exit key are not global but stored and customizable per individual dial plan. Disabled by default. This setting can only be changed after the creation process.
+
+* **Periodic Announcements**: choose which prompt is repeated during the waiting time in a queue. Disabled by default. This setting can only be changed after the creation process.
+
+* **Time between announcements**: Sets the amount of time between periodic announcements. This setting will yield the Elapsed time in queue setting when not equal. This setting can only be changed after the creation process.
+
+* **Time between announcements of callers waiting and hold time**: Sets an announcement stating the number of waiting callers in the queue. Any value will set the time in seconds between the callers waiting announcement and a hold time announcement when set.
+
 * **Report estimated hold time**: Set whether and when estimated hold time is reported to the waiting caller. The following options are available:
-  * **Each interval**: coincides with the Interval between announcements of callers waiting and hold time setting
-  * **Only the first time**: coincides only the first time with the Interval between announcements of callers waiting and hold time setting
-  * **Do not report**: Turns off the estimated hold time announcement
-* **Round hold time (seconds)**: The amount in seconds the estimated waiting time is rounded off. For example, if the waiting time should be rounded off to minutes, enter 60.
-* **Shortcode**: Code for the queue which can be used to log in and out of the queue on a phone by dialling \*48*, followed by the code entered here. This code has to be a value greater than 0 and can contain a maximum of 5 numbers.
-When finished setting up the queue click 'Save'.
-* **Wrap-up time**: The number of seconds after completing a queue call, in which the agent will not receive new queue calls. For more details, see the [Wrap-up time](#wrap-up-time) section.
-* **Ignore user status**: When enabled, allows calls from this queue to be offered to agents with a user status of 'No queue calls' (for example, during wrap-up time) or 'No calls'. For more details, see the [Ignore user status](#ignore-user-status) section. This setting also has effect on the queue settings 'Possible to connect to a queue' and 'Stay connected to queue'. See the documentation for these queue options for more details.
+  * **Each interval**: coincides with the Interval between announcements of callers waiting and hold time setting.
+  * **Once**: coincides only the first time with the Interval between announcements of callers waiting and hold time setting.
+  * **No**: Turns off the estimated hold time announcement.
 
-By clicking on the name of the queue in the overview the queue page loads. Here the queue's settings are displayed and users can be logged in and out of a queue as agents. The right list displays available users in the company not logged in to the queue, the left list displays agents in the queue.
+* **Round estimated hold time (seconds)**: The amount in seconds the estimated waiting time is rounded off. For example, if the waiting time should be rounded off to minutes, enter 60. This setting is only visible if `Report estimated hold time` is set to either `Each interval` or `Once`.
 
-To add a user to the queue click the add button (plus icon) in the right column, to remove an agent from the queue click the remove button (minus icon) in the left column.
+* **Music on hold**: Choose from files added in the Music on hold menu which music is played for a waiting caller. This setting can only be changed after the creation process.
 
-Priority and whether user forwards are followed can be set for agents. When agents are logged in to a queue by default priority is set to 1 and follow user forwards is disabled.
+Agents can be added to or removed from a queue both during and after the queue creation process. Once a queue is created, agents within it can be managed in two ways: either from the queue overview page by selecting the queue and navigating to the 'Agents' tab, or from the dial plan by selecting a queue and clicking the 'Manage agents' button. It is also possible to set an agent's priority and determine whether user forwards are followed. By default, the priority is set to 1, and the 'follow user forwards' option is disabled.
 
-Click 'Save' to save any changes.
 
 #### Wrap-up time
 
@@ -606,7 +621,7 @@ The following features are currently available:
 * **Call control API**: Enable the REST API calls that allow external applications to perform call control. Refer to the REST schema to see the exact calls that become available when enabling this feature.
 * **Listen in API**: Enable the REST API calls that allow external applications to perform listen in. This enables the `/user/<id>/listenIn` REST API call. Refer to the REST schema for more details.
 * **Wrap-up**: Enable wrap-up time after a queue call for this user. The wrap-up time needs to be configured on the queue and will only be applied to users with this feature enabled.
-* **Queue pickup API**: Enable the REST API call that allows a user to pick up a queue call, even if the user is not an agent in the queue. This enables the `/user/<id>/pickupQueueCall` REST API call.
+* **Queue pickup API**: Enable the REST API call that allows a user to pick up a queue call, even if the user is not an agent in the queue. This enables the `/user/<id>/pickupQueueCall` REST API call. Will also enable the `/extension/<id>/pickupQueueCall` API to direct to a specific extension instead of a user.
 
 ### User rights
 
@@ -793,7 +808,7 @@ You will see the following:
 * **MAC address**: make corrections here if the wrong MAC was entered earlier
 * **Expansion pads** (only when applicable): adjust the amount of connected expansion pads
 * **Codec profile** (only when applicable): a codec profile is already defined for the company. If you require a different codec profile for this specific phone, you can configure this here. For example, if a user is working from home on a low bandwidth internet connection. Our advice is to leave this set to default.
-* **Firmware version** (only when applicable): configure which version of the firmware you would like this phone to have. {{site.compass.reseller.prodname}} will attempt to upgrade this phone to the selected firmware.
+* **Firmware version** (only when applicable): configure which version of the firmware you would like this phone to have. {{site.compass.reseller.prodname}} will attempt to upgrade or downgrade the firmware on this phone to the selected version. Note that on some phone series, downgrading is blocked by the vendor for safety or compatibility reasons.
 * **VLAN ID** (only when applicable): enter the ID of the VLAN the phone should use to connect. Consult your network administrator for details. Valid VLAN ID values are between 1 and 4094. If unsure, leave this empty. Usually a VLAN ID is not needed. To deconfigure a VLAN setting, enter the number 0. The next time the phone collects its configuration, it won't be in a VLAN anymore.
 * **Encryption** (only when applicable):
   * **On certified phones**:
