@@ -46,7 +46,7 @@ Here you can manage forwarding of incoming calls, e.g. forward immediately (Alwa
 
 ### Call flow switches
 
-This list contains up to 10 call flow switches present in your company. If there are more, you can click through to the overview page. Next to the switch is a pencil icon, which allows you to change the setting of the call flow switch.
+This list contains up to 10 call flow switches present in your company. If there are more than 10 switches, you can click through to the overview page to see them all. Next to the switch is a pencil icon, which allows you to change the setting of the call flow switch.
 
 ### Queues
 
@@ -124,12 +124,17 @@ Using \*49 the calling user can manually toggle their user status between 'Avail
 
 ### \*55: Set call flow switch
 
-In order to set or check the setting of a call flow switch you can dial a service code starting with \*55. This code needs to be followed by \* and the shortcode of the call flow switch, then another \* and the setting of the switch. The shortcode of the switch and the possible settings can be configured by your administrator, who is also capable of configuring a quick dial on your phone.
-Here are a few examples in order to provide some clarification:
+In order to set or check the setting of a call flow switch from a phone, you can dial a service code starting with `*55*`. The service code is followed by a switch shortcode and optionally a new switch setting number. The shortcode of the switch and the possible settings can be configured by your administrator.
 
-\*55\*9 When dialling this service code, a prompt will identify the current setting of the switch with shortcode 9. This setting is a number.
+To check the current switch setting, dial `*55*(switch shortcode)`. A prompt will indicate the number of the current switch setting. This number ranges from 1 to (maximum) 100 and corresponds with the number of the switch branch.
 
-\*55\*9\*(number between 0 and 9) Change the setting of the call flow switch to the entered number. Choose 0 for setting 10. Your administrator can configure the dial plan for each individual setting.
+To change a switch setting, dial `*55*(switch shortcode)*(new switch setting number)`. A prompt will confirm that the setting of the call flow switch has changed. For backwards compatibility switch setting 0 will be translated to setting 10.
+
+Examples:
+
+* Dial `*55*123` to hear a prompt that identifies the current switch setting of the call flow switch with shortcode 123.
+* Dial `*55*123*55` to change the setting of the call flow switch 123 to the setting with number 55.
+* Dial `*55*123*0` or `*55*123*10` to set switch 123 to setting 10.
 
 ### \*8: Pickup of a call coming in on another phone
 
@@ -459,7 +464,7 @@ Some settings are not accessible during the queue creation process. You can chan
   * **Once**: coincides only the first time with the Interval between announcements of callers waiting and hold time setting.
   * **No**: Turns off the estimated hold time announcement.
 
-* **Round estimated hold time (seconds)**: The amount in seconds the estimated waiting time is rounded off. For example, if the waiting time should be rounded off to minutes, enter 60. This setting is only visible if `Report estimated hold time` is set to either `Each interval` or `Once`.
+* **Round estimated hold time (seconds)**: The amount in seconds the estimated waiting time is rounded off. For example, if the reported waiting time should be rounded off to 15 seconds, enter 15. This setting is only visible if `Report estimated hold time` is set to either `Each interval` or `Once`.
 
 * **Music on hold**: Choose from files added in the Music on hold menu which music is played for a waiting caller. This setting can only be changed after the creation process.
 
@@ -535,13 +540,13 @@ To edit a dial plan forward, click the Edit button (pencil icon) in the overview
 
 If you wish to permanently delete a forward, click the remove button (bin icon) in the overview. You will be requested to confirm the deletion.
 
+<a name="overview-callflowswitch"></a>
 ### Call flow switch
-<a name="callflowswitch"></a>
 
-When call flow switches have been added to a dial plan in your company, this overview gives you a list of all the switches, their short code and current setting. For further details on how to add a call flow switch, see the [Call flow switches](#callflowswitch) section.
+When call flow switches have been added to a dial plan in your company, this overview gives you a list of all the switches, their shortcode and current switch setting. For further details on how to add a call flow switch, see the [Dial plan elements - Call flow switches](#dialplanelements-callflowswitch) section.
 
-To change the setting of a call flow switch via the web interface, click the Edit button (pencil icon) to the right of the switch's name. On the Edit call flow switch page is an overview of all the available settings, with the current setting selected. Select the desired setting and click Save. In the call flow switch overview, the current setting is visible.
-Deleting a call flow switch can be done by going to the extension's dial plan in which the switch is located. Click the X icon in the call flow switch block to remove it from the dial plan and click Save.
+To change the setting of a call flow switch via the web interface, click the Edit button (pencil icon) to the right of the switch's name. On the Edit call flow switch page is an overview of all the available settings, with the current switch setting selected. Select the new switch setting and click Save. The new setting is visible in the call flow switch overview.
+Deleting a call flow switch can be done by going to the dial plan in which the switch is located. Click the X icon in the call flow switch block to remove it from the dial plan and click Save.
 
 ## Users and Groups
 
@@ -836,19 +841,20 @@ An already placed element can be removed by hovering over the element in the dia
 
 The list of elements with which a dial plan can be made consists of the created resources, such as queues, prompts, users, and special elements such as IVR menus and call flow switches. In the next chapters we'll describe how these elements can be used.
 
+<a name="dialplanelements-callflowswitch"></a>
 #### Call flow switch
 
-If a call should be routed differently depending on a condition set by a user, you can use a call flow switch. This for example allows a user to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
+If a call should be routed differently depending on a condition set by a user, you can use a call flow switch. This for example allows an employee to redirect callers on the technical support number to a prompt indicating a service disruption, so all of the support engineers can work on resolving the issue.
 
-To add a call flow switch, drag the element to a free slot. Follow the instructions to add all the relevant information.
+Drag a call flow switch element to a free slot to configure a new switch. Follow the instructions to add all the relevant information.
 
-Shortcode is used to identify the switch when changing or reading the active setting of the switch.
+You will be asked for a shortcode. A shortcode is a number used to identify the switch. The shortcode can also be used to change or check the active setting of a switch using a service code from a phone in your organisation. See the [Set call flow switch](#55-set-call-flow-switch) section for more details.
 
-Optionally, you can give each branch a name by clicking on the branch element and filling in the input field.
+When the switch is created, simply drag dial plan elements to the switch branches to configure what happens if a call is routed through that branch. The active branch is indicated with the label `Active`. You can change the active branch by clicking on the switch element and clicking `Activate` for the desired setting in the right sidebar.
 
-Now simply drag dial plan elements to the branches to configure what happens if a call is routed through that branch.
-
-If you have created a call flow switch, there are two ways to read and change the current setting. First by going to the call flow switches page in {{site.compass.reseller.prodname}}, see the [Call flow switch](#call-flow-switch) section. Second, by using a service code on your phone, as described in the [Set call flow switch](#55-set-call-flow-switch) section. Additionally, in the dial plan of the extension containing the switch, the current setting of the switch is indicated by a check mark in the block of the selected setting.
+* All users in your organisation can check or change the setting of a switch by dialling a service code from their phone. This is explained in the [Set call flow switch](#55-set-call-flow-switch) section.
+* Users with {{site.compass.reseller.prodname}} credentials can change switch settings using the switch overview on the My Settings page, or using the API.
+* Administrators can additionally change switch settings on the call flow switches page in {{site.compass.reseller.prodname}} or in the dial plan editor as explained above. See the [Manage - Call flow switch](#overview-callflowswitch) section for more details.
 
 #### IVR menu
 
